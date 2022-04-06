@@ -1,0 +1,37 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,300;0,400;0,700;0,900;1,300;1,900&display=swap");
+
+
+.account{
+	position: relative;
+	top: 60px;
+}
+.account__body{
+	margin: 20px 0 0 0;
+}
+.account__avatar{
+	margin: 0 auto;
+	width: 200px;
+	height: 200px;
+	border-radius: 50%;
+	background: #000;
+}
+.account__username{
+	margin: 10px auto;
+	font-weight: 700;
+	font-size: 50px;
+}
+.account__columns{
+	display: flex;
+
+}
+.account__column-left{
+	flex: 1 0 40%;
+}
+.account__column{
+	display: flex;
+	flex-direction: column;
+
+}
+.account__column-right{
+	flex: 1 0 60%;
+}
