@@ -1,7 +1,7 @@
 import { setCurrentUser, setUser } from '../reducers/userReducer'
 
 const axios = require('axios')
-const path = 'http://elemen77.beget.tech:5000/'
+const path = 'http://62.113.107.70:5000/'
 export const registration = (username, password) => {
 	return async dispatch => {
 		try {

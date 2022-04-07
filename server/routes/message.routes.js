@@ -40,7 +40,6 @@ router.post('/send-message',
 				minutes: minutes,
 				seconds: seconds
 			}
-			console.log(dateObj)
 			const time = (dateObj.hours + ':' + dateObj.minutes).toString()
 			const newMessage = new Message({ user_id: user, date: dateObj, time: time, username: user.username, mess: message, room_id: roomid })
 			await newMessage.save()

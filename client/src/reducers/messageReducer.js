@@ -18,7 +18,7 @@ export default function messageReducer(state = defaultState, action) {
 		case LOAD_MESSAGES:
 			return {
 				...state,
-				messages: [...action.payload]
+				messages: [...action.payload, ...state.messages]
 			}
 		case CLEAR_MESSAGES:
 			return {

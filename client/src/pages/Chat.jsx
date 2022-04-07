@@ -47,10 +47,11 @@ const Chat = () => {
 				return
 			}
 			let lastHeight = e.target.scrollHeight
-			await setIsMessagesLoading(true)
-			await fetchMessages()
-			await setIsMessagesLoading(false)
+			setIsMessagesLoading(true)
+			fetchMessages()
+			setIsMessagesLoading(false)
 			let currentHeight = e.target.scrollHeight
+			console.log(lastHeight, currentHeight)
 			e.target.scrollTop = currentHeight - lastHeight
 		}
 	}
