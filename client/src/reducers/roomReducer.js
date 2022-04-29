@@ -1,6 +1,7 @@
 const ADD_ROOM = 'ADD_ROOM'
 const LOAD__ROOMS = 'LOAD__ROOMS'
 const GOTO__ROOM = 'GOTO__ROOM'
+const CLEAR__ROOM = 'CLEAR__ROOM'
 const defaultState = {
 	rooms: [],
 	room: {}
@@ -24,6 +25,11 @@ export default function roomReducer(state = defaultState, action) {
 				...state,
 				room: action.payload
 			}
+		case CLEAR__ROOM:
+			return {
+				...state,
+				room: {}
+			}
 		default:
 			return state;
 	}
@@ -32,3 +38,4 @@ export default function roomReducer(state = defaultState, action) {
 export const addRoom = room => ({ type: ADD_ROOM, payload: room })
 export const loadRooms = rooms => ({ type: LOAD__ROOMS, payload: rooms })
 export const gotoRoom = room => ({ type: GOTO__ROOM, payload: room })
+export const clearRoom = () => ({ type: CLEAR__ROOM })

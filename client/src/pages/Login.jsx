@@ -1,6 +1,6 @@
-import React, { useContext, useState } from 'react'
+import '../styles/Login.css'
+import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { Link } from 'react-router-dom'
 import { loadrooms } from '../actions/room'
 import { login } from '../actions/user'
 import MyButton from '../components/UI/MyButton/MyButton'

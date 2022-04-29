@@ -80,7 +80,7 @@ router.post('/connect-to-room',
 		try {
 			const { roomid, userid } = req.body
 			const user = await User.findOne({ _id: userid })
-			const room = await chatRoom.findOne({ _id: roomid })
+			const room = await chatRoom.findOne({ _id: roomid }, { users: 1, usernames: 1, roomname: 1 })
 			let resRoom
 			if (room.usernames) {
 				let close = false
@@ -100,7 +100,7 @@ router.post('/connect-to-room',
 			room.users.push(userid)
 			room.usernames.push(user.username)
 			let updatedRoom = await chatRoom.findOneAndUpdate({ _id: roomid }, { users: room.users, usernames: room.usernames })
-			updatedRoom = await chatRoom.findOne({ _id: roomid })
+			updatedRoom = await chatRoom.findOne({ _id: roomid }, { users: 1, usernames: 1, roomname: 1 })
 			resRoom = { id: updatedRoom._id, users: updatedRoom.users, usernames: updatedRoom.usernames, roomname: updatedRoom.roomname, }
 			emitter.emit('resRoom', resRoom)
 			return res.status(200).json(resRoom)

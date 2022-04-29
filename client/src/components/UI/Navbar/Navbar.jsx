@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 import { logout, setUser } from '../../../reducers/userReducer'
@@ -10,31 +10,57 @@ const Navbar = ({ username }) => {
 	const isAuth = useSelector(state => state.user.isAuth)
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
-	const navbarContent = [classes.navbar__content]
+	const navbarContent = [classes.navbarContent]
+	const navbar = [classes.navbar]
+	const navbarBurger = [classes.navbarBurger]
+	const navbarLinks = [classes.navbarLinks]
+	const navbarLink = [classes.navbarLink]
+	const spanActive = []
+
+	let [isActive, setIsActive] = useState(false)
+	if (isActive) {
+		navbar.push('active')
+		navbarBurger.push('active')
+		navbarLinks.push('active')
+		navbarLink.push('active')
+		spanActive.push('active')
+	}
+	if (!isActive) {
+		navbar.slice(-1, 1)
+		navbarBurger.slice(-1, 1)
+		navbarLinks.slice(-1, 1)
+		navbarLink.slice(-1, 1)
+		spanActive.slice(-1, 1)
+	}
 	if (isAuth) {
 		navbarContent.push(classes.auth)
 	}
 	return (
-		<div className={classes.navbar}>
-			<Link to="/Chats" className={classes.navbar__logo}></Link>
+		<div className={navbar.join(' ')}>
+			<Link to="/Chats" className={classes.navbarLogo}>Logo</Link>
 			{isAuth
 				?
 				<div className={navbarContent.join(' ')}>
-					<div className={classes.navbar__account} onClick={() => {
+					<div className={classes.navbarAccount} onClick={() => {
 						navigate(`Account/${currentUser.id}`);
 					}}>
-						<div className={classes.navbar__avatar}></ div >
-						<div className={classes.navbar__username}>{username}</ div >
+						<div className={classes.navbarAvatar}></ div >
+						<div className={classes.navbarUsername}>{username}</ div >
 					</div>
-					<div className={classes.navbar__links}>
-						<div className={classes.navbar__link} onClick={() => dispatch(logout())}>Logout</ div >
+					<div className={classes.navbarLinks}>
+						<div className={classes.navbarLink} onClick={() => dispatch(logout())}>Logout</ div >
+					</div>
+					<div className={navbarBurger.join(' ')} onClick={() => setIsActive(!isActive)}>
+						<span className={spanActive.join(' ')}></span>
+						<span className={spanActive.join(' ')}></span>
+						<span className={spanActive.join(' ')}></span>
 					</div>
 				</div>
 				:
 				<div className={navbarContent.join(' ')}>
-					<div className={classes.navbar__links}>
-						<Link to="/login" className={classes.navbar__link}>Login</ Link>
-						<Link to="/registration" className={classes.navbar__link}>Registration</Link >
+					<div className={classes.navbarLinks}>
+						<Link to="/login" className={classes.navbarLink}>Login</ Link>
+						<Link to="/registration" className={classes.navbarLink}>Registration</Link >
 					</div>
 				</div>
 			}

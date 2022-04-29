@@ -6,6 +6,7 @@ const Message = require('../models/message')
 const emitter = new events.EventEmitter()
 const router = new Router();
 
+
 router.post('/send-message',
 	async (req, res) => {
 		try {
@@ -65,6 +66,7 @@ router.get('/get-message',
 	async (req, res) => {
 		try {
 			emitter.once('newMessage', ({ message, room }) => {
+				emitter.removeAllListeners()
 				return res.status(200).json({ message: message, room: room })
 			})
 		} catch (e) {
@@ -76,7 +78,7 @@ router.get('/get-message',
 router.post('/load-messages',
 	async (req, res) => {
 		try {
-			const quantity = 100
+			const quantity = 20
 			const { roomid, lastmessid } = req.body
 			let room = await chatRoom.find({ _id: roomid }, { messages: 1 })
 			let total = room[0].messages.length

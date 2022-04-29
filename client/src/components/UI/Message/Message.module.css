@@ -6,19 +6,22 @@
 	text-align: left;
 	line-height: 18px;
 	padding: 0 5px;
+	justify-content: flex-end;
 }
 .messageBody.currentUser {
 	align-items: flex-end;
 	text-align: right;
 }
 .messageName {
+	margin: 0 0 5px 0;
 	color: rgb(5, 81, 168);
-	margin: 5px 0 0 0;
+	/*color: rgb(5, 81, 168);
+	margin: 0 0 5px 0;
 	border-radius: 16px;
 	background: rgba(53, 17, 17, 0.205);
 	max-width: 60%;
 	padding: 10px;
-	width: inherit;
+	width: inherit;*/
 	font-size: 18px;
 	font-weight: 700;
 }
@@ -28,12 +31,15 @@
 	align-items: flex-start;
 	color: rgb(43, 36, 36);
 	margin: 2px 0 0 0;
-	border-radius: 16px;
+	border-radius: 20px;
 	background: rgba(53, 17, 17, 0.205);
 	max-width: 60%;
 	padding: 8px;
 	font-size: 22px;
 	font-weight: 500;
+}
+.messageMessage{
+	text-align: left;
 }
 .messageTime{
 	margin: 2px 0 0 0;
@@ -47,7 +53,6 @@
 	margin: 2px 0 0 0;
 }
 .messageName.currentUser {
-	background: rgba(53, 17, 17, 0.205);
 }
 .messageTime.currentUser{
 	font-weight: 500;

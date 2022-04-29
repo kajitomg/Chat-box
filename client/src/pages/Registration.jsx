@@ -1,7 +1,8 @@
-import React, { useContext, useState } from 'react'
+import '../styles/Registration.css'
+import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { loadrooms } from '../actions/room'
-import { login, registration } from '../actions/user'
+import { registration } from '../actions/user'
 import MyButton from '../components/UI/MyButton/MyButton'
 import MyInput from '../components/UI/MyInput/MyInput'
 

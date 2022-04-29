@@ -1,7 +1,7 @@
 import { addMessage, loadMessages, setTotal, uploadingMessages } from '../reducers/messageReducer'
 import { gotoRoom } from '../reducers/roomReducer'
 const axios = require('axios')
-const path = 'http://62.113.107.70:5000/'
+const path = 'http://localhost:5000/'
 export const sendMessage = (message, userid, roomid) => {
 	return async dispatch => {
 		try {
@@ -20,6 +20,7 @@ export const getMessage = () => {
 	return async dispatch => {
 		try {
 			const response = await axios.get(`${path}api/message/get-message`)
+			console.log(response.data.message)
 			dispatch(addMessage(response.data.message))
 			return
 		} catch (e) {

@@ -1,13 +1,16 @@
+import '../styles/Chats.css'
+import '../styles/App.css'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { connectToRoom, createroom, deleteroom, loadrooms, searchrooms } from '../actions/room'
+import { createroom, deleteroom, loadrooms, searchrooms } from '../actions/room'
 import Loader from '../components/UI/Loader/Loader'
 import MyButton from '../components/UI/MyButton/MyButton'
 import MyInput from '../components/UI/MyInput/MyInput'
 import MyModal from '../components/UI/MyModal/MyModal'
 import { clearMessages } from '../reducers/messageReducer'
-import '../styles/App.css'
+import { clearRoom } from '../reducers/roomReducer'
+import socket from '../socket'
 
 const Chats = () => {
 	const [modalVisible, setModalVisible] = useState(false)
@@ -19,12 +22,21 @@ const Chats = () => {
 	const rooms = useSelector(state => state.room.rooms)
 	const user = useSelector(state => state.user.currentUser)
 	const navigate = useNavigate()
-	useEffect(() => {
-		dispatch(loadrooms())
+	useEffect(async () => {
+		socket.emit('clear-room')
+		socket.removeListener('connect-to-room')
+		socket.removeListener('new-message')
+		await setIsRoomLoading(true)
+		await dispatch(loadrooms())
+		await setIsRoomLoading(false)
+		dispatch(clearRoom())
 		dispatch(clearMessages())
 	}, [])
 	const createRoom = async (e) => {
 		e.preventDefault()
+		if (!roomName) {
+			return
+		}
 		setIsRoomLoading(true)
 		await dispatch(createroom(roomName, headers))
 		await setRoomName('')
@@ -33,6 +45,9 @@ const Chats = () => {
 	}
 	const serchRoom = async (e) => {
 		e.preventDefault()
+		if (!roomSearch) {
+			return
+		}
 		setIsRoomLoading(true)
 		await dispatch(searchrooms(roomSearch))
 		await setRoomSearch('')
@@ -55,7 +70,7 @@ const Chats = () => {
 					<span></span>
 				</div>
 				{isRoomLoading
-					? <Loader />
+					? <div className='chats__loader'><Loader /></div>
 					: rooms.map(room =>
 						<div key={room.id} className="chats__room" onClick={async () => {
 							navigate(`/chat/${room.id}`);

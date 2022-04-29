@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Marck+Script&display=swap');
+
 .navbar {
 	z-index: 2;
 	position: fixed;
@@ -9,7 +11,7 @@
 	justify-content: space-between;
 	padding: 0 20px;
 }
-.navbar__content{
+.navbarContent{
 	flex: 1 1 100%;
 	margin: 0 auto;
 	max-width: 1080px;
@@ -17,7 +19,7 @@
 	align-items: center;
 	justify-content: flex-end;
 }
-.navbar__content.auth{
+.navbarContent.auth{
 	flex: 1 1 100%;
 	margin: 0 auto;
 	max-width: 1080px;
@@ -26,50 +28,54 @@
 	justify-content: space-between;
 }
 
-.navbar__links {
+.navbarLinks {
 	display:flex;
 	align-items:baseline;
 }
-.navbar__logo{
-	margin: 0 20px 0 0;
+.navbarLogo{
+	font-family: 'Marck Script', cursive;
+	margin: 0 20px 0 0; 
 	cursor: pointer;
-	background: #000;
-	min-width: 50px;
-	height: 50px;
+	/* min-width: 50px;
+	height: 50px; */
+	font-size: 36px;
+	color:#fff;
+	letter-spacing: 3px;
+	font-weight: 700;
 	border-radius: 50%;
 }
-.navbar__account{
+.navbarAccount{
 	cursor: pointer;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 }
-.navbar__avatar{
-	background: #000;
+.navbarAvatar{
+	background: rgb(62, 68, 73);
 	margin: 0 5px 0 0;
 	width: 50px;
 	height: 50px;
 	border-radius: 50%;
 }
-.navbar__username{
+.navbarUsername{
 	margin: 0 0 0 5px;
 	font-size: 20px;
 	color: #e7ddc3;
 }
-.navbar__link.auth {
+.navbarLink.auth {
 	position: relative;
 	cursor: pointer;
 	font-weight: 700;
 	font-size: 24px;
 	color: #e7ddc3;
 }
-.navbar__link.auth:first-child{
+.navbarLink.auth:first-child{
 	margin:0 5px 0 0;
 }
-.navbar__link.auth:last-child{
+.navbarLink.auth:last-child{
 	margin:0 0 0 5px;
 }
-.navbar__link{
+.navbarLink{
 	margin:0 10px;
 	position: relative;
 	cursor: pointer;
@@ -77,13 +83,13 @@
 	font-size: 24px;
 	color: #e7ddc3;
 }
-.navbar__link:first-child{
+.navbarLink:first-child{
 	margin:0 5px 0 0;
 }
-.navbar__link:last-child{
+.navbarLink:last-child{
 	margin:0 0 0 5px;
 }
-.navbar__link:hover::after {
+.navbarLink:hover::after {
 	position: absolute;
 	content: "";
 	width: 100%;
@@ -93,4 +99,102 @@
 	bottom: -2px;
 	left: 0;
 	transform: translate3d(0, -50%, 0);
+}
+.navbarBurger{
+	cursor: pointer;
+	position: relative;
+	display: none;
+	width: 36px;
+	height: 18px;
+}
+.navbarBurger span{
+	position: absolute;
+	width: 100%;
+	height: 2px;
+	top: 0;
+	left: 0;
+	background: #e7ddc3;
+}
+.navbarBurger span:first-child{
+	top: 0;
+}
+.navbarBurger span:nth-child(2){
+	top: 50%;
+	transform: translate3d(0, -50%, 0);
+}
+.navbarBurger span:last-child{
+	top: auto;
+	bottom: 0;
+}
+/* .navbar__burger.active span{
+	position: absolute;
+	width: 100%;
+	height: 2px;
+	top: 50%;
+	transform: translate3d(0, -50%, 0);
+	left: 0;
+	background: #e7ddc3;
+} */
+.navbarBurger span.active:nth-child(2){
+	display: none;
+}
+.navbarBurger span.active:first-child{
+	background: #000;
+	top: 0;
+	transform:rotate(45deg);
+}
+.navbarBurger span.active:last-child{
+	top: auto;
+	bottom: 0;
+	transform:rotate(-45deg);;
+}
+
+@media (max-width: 760px) {
+	.navbarLink{
+		margin:0 10px;
+		font-weight: 700;
+		font-size: 22px;
+	}
+	.navbarBurger{
+		display: block;
+	}
+	.navbarLinks {
+		display: none;
+	}
+}
+@media (max-width: 660px) {
+
+}
+@media (max-width: 510px) {
+	.navbarLink{
+		margin:0 10px;
+		font-weight: 700;
+		font-size: 20px;
+	}
+	.navbarAvatar{
+		width: 40px;
+		height: 40px;
+	}
+	.navbarUsername{
+		font-size: 16px;
+	}
+	.navbarLogo{
+		margin: 0 10px 0 0; 
+		font-size: 30px;
+	}
+	
+}
+@media (max-width: 410px) {
+	.navbarLink{
+		margin:0 10px;
+		font-weight: 700;
+		font-size: 18px;
+	}
+}
+@media (max-width: 310px) {
+	.navbarLink{
+		margin:0 10px;
+		font-weight: 700;
+		font-size: 14px;
+	}
 }

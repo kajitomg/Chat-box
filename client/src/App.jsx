@@ -1,9 +1,9 @@
-import './styles/null.css'
+import './styles/Null.css'
 import './styles/App.css'
 import React, { useEffect, useState } from "react";
 import Background from "./components/Background";
 import Login from './pages/Login';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
 import Chat from './pages/Chat';
 import Registration from './pages/Registration';
 import Navbar from './components/UI/Navbar/Navbar';
@@ -12,7 +12,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { auth } from './actions/user';
 import Loader from './components/UI/Loader/Loader';
 import Account from './pages/Account';
-
+import socket from './socket';
+//import io, { Socket } from 'socket.io-client'
 function App() {
 	const isAuth = useSelector(state => state.user.isAuth)
 	const dispatch = useDispatch();
@@ -23,6 +24,20 @@ function App() {
 		await dispatch(auth())
 		setIsContentLoader(false)
 	}, [])
+	useEffect(() => {
+
+		if (isAuth) {
+			socket.connect()
+			socket.on('connect', () => {
+				console.log(socket.id)
+			})
+			socket.emit('user-connection', { userid: user.id })
+		}
+
+		if (!isAuth) {
+			socket.disconnect()
+		}
+	}, [isAuth])
 	return (
 		<div className="wrapper">
 			<main className="page">
