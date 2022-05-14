@@ -154,7 +154,7 @@
 	background: #3a1803;
 	color: #e7ddc3;
 }
-.chats__deleteroom {
+/* .chats__deleteroom {
 	z-index: 3;
 	cursor: pointer;
 	position: absolute;
@@ -177,7 +177,7 @@
 }
 .chats__deleteroom span:first-child {
 	transform: rotate(45deg);
-}
+} */
 .chats__loader{
 	position: absolute;
 	top: 50%;

@@ -13,6 +13,7 @@ const User = require('./models/user')
 const Message = require('./models/message')
 const cors = require('cors')
 const socket = require('socket.io');
+const fileUpload = require('express-fileupload')
 const authMiddleware = require('./middleware/auth.middleware');
 
 const app = express();
@@ -25,9 +26,11 @@ const io = socket(server, {
 
 const PORT = process.env.PORT || config.get('serverPort')
 const DBurl = config.get('dbUrl')
+app.use(fileUpload({}))
 app.use(cors())
 app.use(corsMiddleWare)
 app.use(express.json())
+app.use(express.static('static'))
 app.use('/api/auth', authRouter)
 app.use('/api/user', userRouter)
 app.use('/api/room', roomRouter)
@@ -44,7 +47,7 @@ io.on('connection', socket => {
 			const { roomid, userid } = data
 			socket.join(roomid)
 			const user = await User.findOne({ _id: userid })
-			let room = await chatRoom.findOne({ _id: roomid }, { users: 1, usernames: 1, roomname: 1 })
+			let room = await chatRoom.findOne({ _id: roomid }, { users: 1, usernames: 1, roomname: 1, role: 1, avatar: 1, description: 1, links: 1 })
 			if (room.usernames) {
 				let close = false
 				room.users.forEach((user) => {
@@ -61,10 +64,9 @@ io.on('connection', socket => {
 			await User.findOneAndUpdate({ _id: userid }, { rooms: user.rooms })
 			room.users.push(userid)
 			room.usernames.push(user.username)
-			let updatedRoom = await chatRoom.findOneAndUpdate({ _id: roomid }, { users: room.users, usernames: room.usernames })
-			updatedRoom = await chatRoom.findOne({ _id: roomid }, { users: 1, usernames: 1, roomname: 1 })
-			room = updatedRoom
-			io.to(roomid).emit('connect-to-room', { room })
+			let updatedRoom = await chatRoom.findOneAndUpdate({ _id: roomid }, { users: room.users, usernames: room.usernames, $push: { role: { userid: user._id, role: 'User' } } })
+			updatedRoom = await chatRoom.findOne({ _id: roomid }, { users: 1, usernames: 1, roomname: 1, role: 1, avatar: 1, description: 1, links: 1 })
+			io.to(roomid).emit('connect-to-room', { room: updatedRoom })
 			return
 		})
 	socket.on('clear-room',

@@ -63,7 +63,7 @@ const Chats = () => {
 			<div className="chats__rooms">
 				<MyModal visible={modalVisible} setVisible={setModalVisible} >
 					<MyInput value={roomName} type='text' className='chats__input' placeholder='Chat name' onChange={(e) => setRoomName(e.target.value)} />
-					<MyButton className='chats__button' onClick={createRoom} >Создать комнату</MyButton>
+					<MyButton className='chats__button' onClick={createRoom} >Create room</MyButton>
 				</MyModal>
 				<div onClick={() => setModalVisible(true)} className="chats__room-create" >
 					<span></span>
@@ -76,10 +76,10 @@ const Chats = () => {
 							navigate(`/chat/${room.id}`);
 						}}>
 							{room.roomname}
-							<div className='chats__deleteroom' onClick={async (e) => { e.stopPropagation(); await dispatch(deleteroom(room.id, user.id)) }}>
+							{/* <div className='chats__deleteroom' onClick={async (e) => { e.stopPropagation(); await dispatch(deleteroom(room.id, user._id)) }}>
 								<span></span>
 								<span></span>
-							</div>
+							</div> */}
 						</div>
 					)
 				}

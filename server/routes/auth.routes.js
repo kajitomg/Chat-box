@@ -32,16 +32,13 @@ router.post('/registration',
 				return res.status(400).json({ next: 'next', message: `User with username ${username} was created` })
 			}
 			const hashpassword = await bcrypt.hash(password, 8)
-			const user = new User({ username, password: hashpassword, rooms: [] })
+			let user = new User({ username, password: hashpassword, rooms: [], avatar: null })
 			await user.save()
 			const token = jwt.sign({ id: user.id }, config.get('secretKey'), { expiresIn: '1h' });
+			user = await User.findOne({ username: username }, { password: 0, socketid: 0 })
 			return res.json({
 				token,
-				user: {
-					id: user.id,
-					username: user.username,
-					rooms: user.rooms
-				}
+				user
 			})
 
 		} catch (e) {
@@ -56,7 +53,7 @@ router.post('/login',
 		try {
 			const { username, password } = req.body
 
-			const user = await User.findOne({ username })
+			let user = await User.findOne({ username })
 
 			if (!user) {
 				return res.status(404).json({ message: 'User not found' })
@@ -67,14 +64,10 @@ router.post('/login',
 				return res.status(400).json({ message: 'Invalid password' })
 			}
 			const token = jwt.sign({ id: user.id }, config.get('secretKey'), { expiresIn: '1h' });
-
+			user = await User.findOne({ username: username }, { password: 0, socketid: 0 })
 			return res.json({
 				token,
-				user: {
-					id: user.id,
-					username: user.username,
-					rooms: user.rooms
-				}
+				user
 			})
 
 		} catch (e) {
@@ -86,15 +79,11 @@ router.post('/login',
 router.get('/auth', authMiddleware,
 	async (req, res) => {
 		try {
-			const user = await User.findOne({ _id: req.user.id })
+			const user = await User.findOne({ _id: req.user.id }, { password: 0, socketid: 0 })
 			const token = jwt.sign({ id: user.id }, config.get('secretKey'), { expiresIn: '1h' });
 			return res.json({
 				token,
-				user: {
-					id: user.id,
-					username: user.username,
-					rooms: user.rooms
-				}
+				user
 			})
 		} catch (e) {
 			console.log(e)

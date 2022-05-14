@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Marck+Script&display=swap');
 
 .navbar {
-	z-index: 2;
+	z-index: 10;
 	position: fixed;
 	width: 100%;
 	height: 60px;
@@ -11,9 +11,40 @@
 	justify-content: space-between;
 	padding: 0 20px;
 }
+.navbar.active {
+	overflow: auto;
+	z-index: 10;
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	background: #3a1803;
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+	padding: 5px 20px;
+	animation: navbarActivation 0.3s forwards;
+}
+@keyframes navbarActivation {
+	0%{
+		width: 100%;
+		height: 60px;
+	}
+	100%{
+		width: 100%;
+	height: 100%;
+	}
+}
 .navbarContent{
 	flex: 1 1 100%;
 	margin: 0 auto;
+	max-width: 1080px;
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+}
+.navbarContent.active{
+	flex: 1 1 100%;
+	margin:0 auto;
 	max-width: 1080px;
 	display: flex;
 	align-items: center;
@@ -32,14 +63,24 @@
 	display:flex;
 	align-items:baseline;
 }
+.navbarLinks.active {
+	position: absolute;
+	top: 15%;
+	left: 50%;
+	align-items:center;
+	transform: translate3d(-50%, 0, 0);
+	flex-direction: column;
+}
 .navbarLogo{
 	font-family: 'Marck Script', cursive;
 	margin: 0 20px 0 0; 
 	cursor: pointer;
-	/* min-width: 50px;
-	height: 50px; */
+	/* min-width: 50px;*/
+	height: 50px; 
+	display: flex;
+	align-items: center;
 	font-size: 36px;
-	color:#fff;
+	color:#e7ddc3;
 	letter-spacing: 3px;
 	font-weight: 700;
 	border-radius: 50%;
@@ -51,11 +92,17 @@
 	justify-content: space-between;
 }
 .navbarAvatar{
-	background: rgb(62, 68, 73);
+	/*background: rgb(62, 68, 73);*/
 	margin: 0 5px 0 0;
 	width: 50px;
 	height: 50px;
 	border-radius: 50%;
+}
+.navbarAvatar img{
+	width:inherit;
+	height: inherit;
+	border-radius: 50%;
+	object-fit: cover;
 }
 .navbarUsername{
 	margin: 0 0 0 5px;
@@ -75,6 +122,7 @@
 .navbarLink.auth:last-child{
 	margin:0 0 0 5px;
 }
+
 .navbarLink{
 	margin:0 10px;
 	position: relative;
@@ -99,6 +147,20 @@
 	bottom: -2px;
 	left: 0;
 	transform: translate3d(0, -50%, 0);
+}
+.navbarLink.active{
+	margin: 10px 0;
+	font-size: 40px;
+	text-align: center;
+	animation: burgerTextActivation 0.3s forwards
+}
+@keyframes burgerTextActivation {
+	0%{
+		color: #e7ddc300;
+	}
+	100%{
+		color: #e7ddc3;
+	}
 }
 .navbarBurger{
 	cursor: pointer;
@@ -135,19 +197,57 @@
 	left: 0;
 	background: #e7ddc3;
 } */
-.navbarBurger span.active:nth-child(2){
+.navbarBurger.active span:nth-child(2){
+	/* animation: BurgerRotateMiddleChild 0.5s forwards; */
 	display: none;
 }
-.navbarBurger span.active:first-child{
-	background: #000;
-	top: 0;
-	transform:rotate(45deg);
+.navbarBurger.active span:first-child{
+	animation: BurgerRotateFirstChild 0.4s forwards;
+	top: 8px;
 }
-.navbarBurger span.active:last-child{
+.navbarBurger.active span:last-child{
+	animation: BurgerRotateLastChild 0.4s forwards;
 	top: auto;
-	bottom: 0;
-	transform:rotate(-45deg);;
+	bottom: 8px;
 }
+/* @keyframes BurgerRotateMiddleChild {
+	100%{
+		width: 0;
+		height: 0;
+	}
+} */
+@keyframes BurgerRotateFirstChild {
+	0%{
+		top: 8px;
+	}
+	70%{
+		top: 8px;
+		transform:rotate(-70deg);
+	}
+	
+	100%{
+		top: 8px;
+	transform:rotate(-45deg);
+	}
+}
+@keyframes BurgerRotateLastChild {
+	0%{
+		top: auto;
+		bottom: 8px;
+	}
+	70%{
+		top: auto;
+	bottom: 8px;
+		transform:rotate(70deg);;
+	}
+	
+	100%{
+		top: auto;
+	bottom: 8px;
+	transform:rotate(45deg);;
+	}
+}
+
 
 @media (max-width: 760px) {
 	.navbarLink{
@@ -160,6 +260,9 @@
 	}
 	.navbarLinks {
 		display: none;
+	}
+	.navbarLinks.active {
+		display: flex;
 	}
 }
 @media (max-width: 660px) {
@@ -179,8 +282,13 @@
 		font-size: 16px;
 	}
 	.navbarLogo{
+		height: 40px;
 		margin: 0 10px 0 0; 
 		font-size: 30px;
+	}
+	.navbar.active {
+		padding: 10px 20px;
+		animation: navbarActivation 0.3s forwards;
 	}
 	
 }

@@ -1,0 +1,37 @@
+.moreWrapper{
+	display: flex;
+	cursor: pointer;
+	top: 13px;
+	right: 20px;
+	z-index: 4;
+	position: absolute;
+	width: 24px;
+	height: 24px;
+}
+.moreWrapper span{
+	z-index: 4;
+	position: absolute;
+	top: 0;
+	left: 50%;
+	width: 4px;
+	border-radius: 50%;
+	height: 4px;
+	transform: translate3d(-50%, 0, 0);
+	background: #3a1803;
+}
+.moreWrapper span:first-child{
+	top: 0;
+}
+.moreWrapper span:nth-child(2){
+	top: 50%;
+	transform: translate3d(-50%, -50%, 0);
+}
+.moreWrapper span:last-child{
+	top: auto;
+	bottom:0;
+}
+@media (max-width: 580px){
+	.moreWrapper span{
+		background: #e7ddc3;
+	}
+}

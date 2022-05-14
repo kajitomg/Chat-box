@@ -133,4 +133,99 @@ export const getRoomUsers = async (usersid) => {
 		console.log(e)
 	}
 }
+export const uploadRoomAvatar = (file, roomid) => {
+	return async dispatch => {
+		try {
+			const formData = new FormData()
+			formData.append('file', file)
+			formData.append('data', roomid)
+			const response = await axios.post(`${path}api/room/upload-avatar`, formData)
+			await dispatch(gotoRoom(response.data.room))
+		} catch (e) {
+			console.log(e.response.message)
+		}
+	}
+}
+export const deleteRoomAvatar = (roomid) => {
+	return async dispatch => {
+		try {
+			const response = await axios.post(`${path}api/room/delete-avatar`, {
+				roomid
+			})
+			await dispatch(gotoRoom(response.data.room))
+		} catch (e) {
+			console.log(e.response.message)
+		}
+	}
+}
+export const editChatName = (roomid, roomname) => {
+	return async dispatch => {
+		try {
+			const response = await axios.post(`${path}api/room/edit-name`, {
+				roomid,
+				roomname
+			})
+			await dispatch(gotoRoom(response.data.room))
+		} catch (e) {
+			console.log(e.response.message)
+		}
+	}
+}
+export const editChatDescription = (roomid, roomdescription) => {
+	return async dispatch => {
+		try {
+			const response = await axios.post(`${path}api/room/edit-description`, {
+				roomid,
+				roomdescription
+			})
+			await dispatch(gotoRoom(response.data.room))
+		} catch (e) {
+			console.log(e.response.message)
+		}
+	}
+}
+
+export const createLink = (linkname, linklink, roomid) => {
+	return async dispatch => {
+		try {
+			const response = await axios.post(`${path}api/room/create-link`, {
+				linkname,
+				linklink,
+				roomid,
+			})
+			await dispatch(gotoRoom(response.data.room))
+		} catch (e) {
+			console.log(e.response.message)
+		}
+	}
+}
+export const deleteLink = (linkid, roomid) => {
+	return async dispatch => {
+		try {
+			const response = await axios.post(`${path}api/room/delete-link`, {
+				linkid,
+				roomid
+			})
+			await dispatch(gotoRoom(response.data.room))
+		} catch (e) {
+			console.log(e.response.message)
+		}
+	}
+}
+export const editLink = (linkname, linklink, roomid, linkid) => {
+	return async dispatch => {
+		try {
+			const response = await axios.post(`${path}api/room/edit-link`, {
+				linkname,
+				linklink,
+				roomid,
+				linkid
+			})
+			await dispatch(gotoRoom(response.data.room))
+		} catch (e) {
+			console.log(e.response.message)
+		}
+	}
+}
+
 

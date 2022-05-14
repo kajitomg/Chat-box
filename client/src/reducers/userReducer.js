@@ -1,12 +1,12 @@
 const SET_CURRENT_USER = 'SET_CURRENT_USER'
 const LOGOUT = 'LOGOUT'
 const SET_USER = 'SET_USER'
-
+const SET_USERS = 'SET_USERS'
 const defaultState = {
 	currentUser: {},
 	isAuth: false,
 	user: {},
-	users: {}
+	users: []
 }
 
 export default function userReducer(state = defaultState, action) {
@@ -30,11 +30,17 @@ export default function userReducer(state = defaultState, action) {
 				...state,
 				user: action.payload
 			}
+		case SET_USERS:
+			return {
+				...state,
+				users: action.payload
+			}
 		default:
 			return state;
 	}
 }
 
 export const setUser = user => ({ type: SET_USER, payload: user })
+export const setUsers = users => ({ type: SET_USERS, payload: users })
 export const setCurrentUser = user => ({ type: SET_CURRENT_USER, payload: user })
 export const logout = () => ({ type: LOGOUT })

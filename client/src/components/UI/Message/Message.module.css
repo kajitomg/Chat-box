@@ -6,11 +6,53 @@
 	text-align: left;
 	line-height: 18px;
 	padding: 0 5px;
-	justify-content: flex-end;
+	justify-content: flex-start;
+}
+.messageBody.name {
+	display: inline-block;
+	display: flex;
+	flex-direction: row;
+	text-align: left;
+	line-height: 18px;
+	margin: 5px 0 0 0;
+	padding: 0 5px;
+	justify-content: flex-start;
 }
 .messageBody.currentUser {
 	align-items: flex-end;
 	text-align: right;
+}
+.messageContent{
+	margin: 0 0 0 40px;
+	display: flex;
+	flex-direction: column;
+}
+.messageContent.currentUser{
+	margin: 0 40px 0 0;
+	display: flex;
+	flex-direction: column;
+}
+.messageContent.name {
+	margin: 0;
+	display: flex;
+	flex-direction: column;
+}
+.messageBody.name.currentUser {
+	justify-content: flex-end;
+	align-items: flex-end;
+	text-align: right;
+}
+.messageAvatar{
+	margin: 0 5px;
+	width: 30px;
+	height:30px;
+}
+.messageAvatar img{
+	z-index: 2;
+	width:inherit;
+	height: inherit;
+	border-radius: 50%;
+	object-fit: cover;
 }
 .messageName {
 	margin: 0 0 5px 0;
@@ -27,8 +69,9 @@
 }
 .messageText {
 	display:flex;
-	flex-direction: column;
+	flex-direction: row;
 	align-items: flex-start;
+	justify-content: flex-start;
 	color: rgb(43, 36, 36);
 	margin: 2px 0 0 0;
 	border-radius: 20px;
@@ -39,7 +82,13 @@
 	font-weight: 500;
 }
 .messageMessage{
+	display: flex;
+	justify-content: flex-start;
 	text-align: left;
+}
+.messageMessage.currentUser{
+	display: flex;
+	justify-content: flex-end;
 }
 .messageTime{
 	margin: 2px 0 0 0;
@@ -51,6 +100,13 @@
 .messageText.currentUser {
 	align-items: flex-end;
 	margin: 2px 0 0 0;
+}
+.messageText.name.currentUser {
+	align-items: flex-start;
+	margin: 2px 0 0 0;
+}
+.messageText.name{
+	flex-direction: row;
 }
 .messageName.currentUser {
 }

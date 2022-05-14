@@ -1,4 +1,4 @@
-import { setCurrentUser, setUser } from '../reducers/userReducer'
+import { setCurrentUser, setUser, setUsers } from '../reducers/userReducer'
 
 const axios = require('axios')
 const path = 'http://localhost:5000/'
@@ -52,12 +52,38 @@ export const getUser = (userID) => {
 			const response = await axios.post(`${path}api/user/get-user`, {
 				userID
 			})
-			dispatch(setUser(response.data.user))
+			return dispatch(setUser(response.data.user))
 		} catch (e) {
 			console.log(e.response.data.message)
 		}
 	}
 }
-
+export const getUsers = (chatID) => {
+	return async dispatch => {
+		try {
+			const response = await axios.post(`${path}api/user/get-users`, {
+				roomid: chatID
+			})
+			return dispatch(setUsers(response.data.users))
+		} catch (e) {
+			console.log(e.response.data.message)
+		}
+	}
+}
+export const uploadUserAvatar = (file, userID) => {
+	return async dispatch => {
+		try {
+			const formData = new FormData()
+			formData.append('file', file)
+			const response = await axios.post(`${path}api/user/upload-avatar`, formData,
+				{ headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
+			)
+			await dispatch(setUser(response.data.user))
+			await dispatch(setCurrentUser(response.data.user))
+		} catch (e) {
+			console.log(e.response.message)
+		}
+	}
+}
 
 

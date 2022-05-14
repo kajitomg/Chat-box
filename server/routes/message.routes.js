@@ -78,7 +78,7 @@ router.get('/get-message',
 router.post('/load-messages',
 	async (req, res) => {
 		try {
-			const quantity = 20
+			const quantity = 100
 			const { roomid, lastmessid } = req.body
 			let room = await chatRoom.find({ _id: roomid }, { messages: 1 })
 			let total = room[0].messages.length

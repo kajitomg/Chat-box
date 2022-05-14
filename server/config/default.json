@@ -1,5 +1,6 @@
 {
 	"serverPort": 5000,
 	"dbUrl": "mongodb+srv://Tawaraya:H3ez16Ktr2eyeHL3@cluster0.oqjq2.mongodb.net/Chat-box?retryWrites=true&w=majority",
-	"secretKey": "mern-secret-key"
+	"secretKey": "mern-secret-key",
+	"staticPath": "C:\\Web\\chat-box\\server\\static"
 }

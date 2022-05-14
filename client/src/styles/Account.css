@@ -9,11 +9,19 @@
 	margin: 20px 0 0 0;
 }
 .account__avatar{
+	z-index: 5;
 	margin: 0 auto;
 	width: 200px;
 	height: 200px;
 	border-radius: 50%;
-	background: rgb(62, 68, 73);;
+}
+.account__avatar img{
+	cursor: pointer;
+	z-index: 2;
+	width:inherit;
+	height: inherit;
+	border-radius: 50%;
+	object-fit: cover;
 }
 .account__username{
 	margin: 10px auto;
@@ -29,6 +37,17 @@
 }
 .account__online-offline{
 	color:rgba(184, 42, 42, 0.767);
+}
+.account__edit{
+	cursor: pointer;
+	width: 220px;
+	background: #3a18032a;
+	border-radius: 10px;
+	margin: 10px auto;
+	padding: 5px 10px;
+	text-align: center;
+	font-size: 24px;
+	font-weight: 700;
 }
 .account__columns{
 	display: flex;

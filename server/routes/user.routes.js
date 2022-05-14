@@ -1,9 +1,10 @@
 const Router = require("express")
 const chatRoom = require("../models/chat-room")
 const User = require('../models/user.js')
-const events = require('events')
-
-const emitter = new events.EventEmitter()
+const Uuid = require('uuid')
+const fs = require("fs")
+const authMiddleware = require("../middleware/auth.middleware")
+const config = require('config')
 
 
 const router = new Router()
@@ -13,9 +14,46 @@ router.post('/get-user',
 		try {
 			let { userID } = req.body
 			let user = await User.findOne({ _id: userID }, { password: 0, socketid: 0 })
-			res.status(200).json({ user: user })
+			res.status(200).json({ user })
 		} catch (e) {
 			res.json({ message: 'Server error' })
+		}
+	})
+router.post('/get-users',
+	async (req, res) => {
+		try {
+			let { roomid } = req.body
+			room = await chatRoom.findOne({ _id: roomid })
+			users = await User.find({ _id: { $in: room.users } }, { password: 0, socketid: 0 })
+			res.status(200).json({ users })
+		} catch (e) {
+			res.json({ message: 'Server error' })
+		}
+	})
+router.post('/upload-avatar', authMiddleware,
+	async (req, res) => {
+		try {
+			const file = req.files.file
+			const user = await User.findOne({ _id: req.user.id })
+			const avatarName = Uuid.v4() + '.jpg'
+			file.mv(config.get('staticPath') + "\\" + avatarName)
+			user.avatar = avatarName
+			await user.save()
+			res.status(200).json({ user })
+		} catch (e) {
+			res.json({ message: 'Upload avatar error' })
+		}
+	})
+router.delete('/delete-avatar',
+	async (req, res) => {
+		try {
+			const user = await User.findOne({ _id: req.body.userID })
+			fs.unlinkSync(config.get('staticPath' + '\\' + user.avatar))
+			user.avatar = null
+			await user.save()
+			res.status(200).json(user)
+		} catch (e) {
+			res.json({ message: 'Delete avatar error' })
 		}
 	})
 

@@ -20,8 +20,7 @@ export const getMessage = () => {
 	return async dispatch => {
 		try {
 			const response = await axios.get(`${path}api/message/get-message`)
-			console.log(response.data.message)
-			dispatch(addMessage(response.data.message))
+			await dispatch(addMessage(response.data.message))
 			return
 		} catch (e) {
 			console.log(e)
@@ -35,8 +34,8 @@ export const loadmessages = (roomid, lastmessid) => {
 				roomid,
 				lastmessid
 			})
-			dispatch(loadMessages(response.data.messages))
-			dispatch(setTotal(response.data.total))
+			await dispatch(loadMessages(response.data.messages))
+			await dispatch(setTotal(response.data.total))
 			return
 		} catch (e) {
 			console.log(e)

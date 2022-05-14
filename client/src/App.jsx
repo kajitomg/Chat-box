@@ -31,7 +31,7 @@ function App() {
 			socket.on('connect', () => {
 				console.log(socket.id)
 			})
-			socket.emit('user-connection', { userid: user.id })
+			socket.emit('user-connection', { userid: user._id })
 		}
 
 		if (!isAuth) {

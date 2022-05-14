@@ -5,7 +5,11 @@ const ChatRoom = new Schema({
 	usernames: [{ type: String }],
 	roomname: { type: String, required: true },
 	roomname_lower: { type: String, required: true },
-	messages: [{ type: Object, ref: 'Message' }]
+	role: [{ type: Object }],
+	messages: [{ type: Object, ref: 'Message' }],
+	description: { type: String },
+	links: [{ type: Object }],
+	avatar: { type: String }
 
 })
 

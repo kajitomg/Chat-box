@@ -29,6 +29,7 @@
 	/*background: rgb(61, 29, 29);*/
 }
 .MyModal__btn {
+	z-index: 5;
 	cursor: pointer;
 	position: absolute;
 	top: 20px;
@@ -43,7 +44,7 @@
 	left: 0;
 	width: 100%;
 	height: 3px;
-	background: rgb(224, 221, 221);
+	background: #e7ddc3;
 }
 .MyModal__btn span:first-child {
 	transform: rotate(45deg);
@@ -56,6 +57,9 @@
 		border-radius: 0px;
 		width: 100%;
 		height: 100%;
+	}
+	.MyModal__btn {
+		top: 70px;
 	}
 }
 
