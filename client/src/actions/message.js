@@ -1,7 +1,7 @@
 import { addMessage, loadMessages, setTotal, uploadingMessages } from '../reducers/messageReducer'
 import { gotoRoom } from '../reducers/roomReducer'
 const axios = require('axios')
-const path = 'http://chat-box:5000/'
+const path = 'http://89.108.77.72:5000/'
 export const sendMessage = (message, userid, roomid) => {
 	return async dispatch => {
 		try {
