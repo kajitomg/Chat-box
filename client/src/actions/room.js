@@ -2,7 +2,7 @@ import { addRoom, gotoRoom, loadRooms } from '../reducers/roomReducer'
 import { getUserReducer, setUser } from '../reducers/userReducer'
 
 const axios = require('axios')
-const path = 'http://localhost:5000/'
+const path = 'http://chat-box:5000/'
 export const createroom = (roomname, headers) => {
 	return async dispatch => {
 		try {
