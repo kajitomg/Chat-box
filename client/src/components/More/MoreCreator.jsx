@@ -33,7 +33,7 @@ const MoreCreator = ({ navigate, user, users, chat, moreInfo, editAvatar, setEdi
 	const [linksIsActive, setLinksIsActive] = useState(true)
 	const [editRoomName, setEditRoomName] = useState(false)
 	const [editRoomDescription, setEditRoomDescription] = useState(false)
-	const avatarURL = chat.avatar ? `http://localhost:5000/${chat.avatar}` : avatarLogo
+	const avatarURL = chat.avatar ? `http://chat-box:5000/${chat.avatar}` : avatarLogo
 	if (moreInfo) {
 		chatMore.push('active')
 	}

@@ -6,7 +6,7 @@ import { leavetheroom, loadrooms } from '../../actions/room'
 import { useDispatch } from 'react-redux'
 
 const MoreUser = ({ navigate, user, users, chat }) => {
-	const avatarURL = chat.avatar ? `http://localhost:5000/${chat.avatar}` : avatarLogo
+	const avatarURL = chat.avatar ? `http://chat-box:5000/${chat.avatar}` : avatarLogo
 	const dispatch = useDispatch()
 	return (
 		chat.role.map(role =>

@@ -15,7 +15,7 @@ const Account = () => {
 	let user = useSelector(state => state.user.user)
 	let currentUser = useSelector(state => state.user.currentUser)
 	const [modalVisible, setModalVisible] = useState(false)
-	const avatarURL = user.avatar ? `http://localhost:5000/${user.avatar}` : avatarLogo
+	const avatarURL = user.avatar ? `http://chat-box:5000/${user.avatar}` : avatarLogo
 	const dispatch = useDispatch()
 	const [fetchUser] = useFetching(async () => {
 		await dispatch(getUser(userID))
