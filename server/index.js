@@ -15,6 +15,8 @@ const cors = require('cors')
 const socket = require('socket.io');
 const fileUpload = require('express-fileupload')
 const authMiddleware = require('./middleware/auth.middleware');
+const filePathMiddleware = require('./middleware/filepath.middleware');
+const path = require('path')
 
 const app = express();
 const server = require('http').Server(app)
@@ -29,6 +31,7 @@ const DBurl = config.get('dbUrl')
 app.use(fileUpload({}))
 app.use(cors())
 app.use(corsMiddleWare)
+app.use(filePathMiddleware(path.resolve(__dirname, 'static')))
 app.use(express.json())
 app.use(express.static('static'))
 app.use('/api/auth', authRouter)
