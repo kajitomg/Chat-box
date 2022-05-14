@@ -1,7 +1,7 @@
 import { setCurrentUser, setUser, setUsers } from '../reducers/userReducer'
 
 const axios = require('axios')
-const path = 'http://chat-box:5000/'
+const path = 'http://89.108.77.72:5000/'
 export const registration = (username, password) => {
 	return async dispatch => {
 		try {
