@@ -17,7 +17,7 @@ const Navbar = ({ username }) => {
 	const navbarLinks = [classes.navbarLinks]
 	const navbarLink = [classes.navbarLink]
 	const spanActive = []
-	const avatarURL = currentUser.avatar ? `http://localhost:5000/${currentUser.avatar}` : avatarLogo
+	const avatarURL = currentUser.avatar ? `http://89.108.77.72:5000/${currentUser.avatar}` : avatarLogo
 
 	let [isActive, setIsActive] = useState(false)
 	if (isActive) {
