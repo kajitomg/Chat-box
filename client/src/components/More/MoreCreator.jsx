@@ -282,7 +282,7 @@ const MoreCreator = ({ navigate, user, users, chat, moreInfo, editAvatar, setEdi
 											<li className="users__user users__user-creator user" key={user._id} onClick={() =>
 												navigate(`/Account/${user._id}`)
 											}>
-												{<img className='user__avatar' src={user.avatar ? `http://localhost:5000/${user.avatar}` : avatarLogo} alt="" />}
+												{<img className='user__avatar' src={user.avatar ? `http://89.108.77.72:5000/${user.avatar}` : avatarLogo} alt="" />}
 												{user.username}
 												{<img className='user__crown' src={creatorCrown} alt="" />}
 											</li>
@@ -297,7 +297,7 @@ const MoreCreator = ({ navigate, user, users, chat, moreInfo, editAvatar, setEdi
 											<li className="users__user users__user-administrator user" key={user._id} onClick={() =>
 												navigate(`/Account/${user._id}`)
 											}>
-												{<img className='user__avatar' src={user.avatar ? `http://localhost:5000/${user.avatar}` : avatarLogo} alt="" />}
+												{<img className='user__avatar' src={user.avatar ? `http://89.108.77.72:5000/${user.avatar}` : avatarLogo} alt="" />}
 												{<div>{user.username}</div>}
 												{<img className='user__star' src={administratorStar} alt="" />}
 											</li>
@@ -312,7 +312,7 @@ const MoreCreator = ({ navigate, user, users, chat, moreInfo, editAvatar, setEdi
 											<li className="users__user user" key={user._id} onClick={() =>
 												navigate(`/Account/${user._id}`)
 											}>
-												{<img className='user__avatar' src={user.avatar ? `http://localhost:5000/${user.avatar}` : avatarLogo} alt="" />}
+												{<img className='user__avatar' src={user.avatar ? `http://89.108.77.72:5000/${user.avatar}` : avatarLogo} alt="" />}
 												{user.username}
 											</li>
 
@@ -357,7 +357,7 @@ const MoreCreator = ({ navigate, user, users, chat, moreInfo, editAvatar, setEdi
 											<li className="users__user users__user-creator user" key={user._id} onClick={() =>
 												navigate(`/Account/${user._id}`)
 											}>
-												{<img className='user__avatar' src={user.avatar ? `http://localhost:5000/${user.avatar}` : avatarLogo} alt="" />}
+												{<img className='user__avatar' src={user.avatar ? `http://89.108.77.72:5000/${user.avatar}` : avatarLogo} alt="" />}
 												{user.username}
 												{<img className='user__crown' src={creatorCrown} alt="" />}
 											</li>
@@ -372,7 +372,7 @@ const MoreCreator = ({ navigate, user, users, chat, moreInfo, editAvatar, setEdi
 											<li className="users__user users__user-administrator user" key={user._id} onClick={() =>
 												navigate(`/Account/${user._id}`)
 											}>
-												{<img className='user__avatar' src={user.avatar ? `http://localhost:5000/${user.avatar}` : avatarLogo} alt="" />}
+												{<img className='user__avatar' src={user.avatar ? `http://89.108.77.72:5000/${user.avatar}` : avatarLogo} alt="" />}
 												{<div>{user.username}</div>}
 												{<img className='user__star' src={administratorStar} alt="" />}
 											</li>
@@ -387,7 +387,7 @@ const MoreCreator = ({ navigate, user, users, chat, moreInfo, editAvatar, setEdi
 											<li className="users__user user" key={user._id} onClick={() =>
 												navigate(`/Account/${user._id}`)
 											}>
-												{<img className='user__avatar' src={user.avatar ? `http://localhost:5000/${user.avatar}` : avatarLogo} alt="" />}
+												{<img className='user__avatar' src={user.avatar ? `http://89.108.77.72:5000/${user.avatar}` : avatarLogo} alt="" />}
 												{user.username}
 											</li>
 

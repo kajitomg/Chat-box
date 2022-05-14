@@ -208,7 +208,7 @@ const Chat = () => {
 								?
 								users.map((user, i) =>
 									<li key={user._id} className='chat__user' >
-										{<img className='chat__avatar' src={user.avatar ? `http://localhost:5000/${user.avatar}` : avatarLogo} alt="" />}{user.username}
+										{<img className='chat__avatar' src={user.avatar ? `http://89.108.77.72:5000/${user.avatar}` : avatarLogo} alt="" />}{user.username}
 									</li>
 								)
 								:
