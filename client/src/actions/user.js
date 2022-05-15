@@ -1,7 +1,8 @@
 import { setCurrentUser, setUser, setUsers } from '../reducers/userReducer'
 
 const axios = require('axios')
-const path = 'http://89.108.77.72:5000/'
+const api = require('../path/api_url')
+const path = api.API_URL
 export const registration = (username, password) => {
 	return async dispatch => {
 		try {

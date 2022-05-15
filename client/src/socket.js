@@ -2,8 +2,8 @@
 import io from 'socket.io-client'
 
 
-
-const path = 'http://89.108.77.72:5000/'
+const api = require('./path/api_url')
+const path = api.API_URL
 const socket = io(path)
 
 

@@ -35,7 +35,8 @@ const Chat = () => {
 	const scrollEnd = useRef(null)
 	const scrollTop = useRef(null)
 	const [message, setMessage] = useState('')
-	const path = 'http://89.108.77.72:5000/'
+	const api = require('../path/api_url')
+	const path = api.API_URL
 	const [fetchMessages, isMessagesLoading] = useFetching(async () => {
 		if (messages.length === 0) {
 			await dispatch(loadmessages(chatID))

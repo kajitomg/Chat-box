@@ -17,7 +17,8 @@ const Navbar = ({ username }) => {
 	const navbarLinks = [classes.navbarLinks]
 	const navbarLink = [classes.navbarLink]
 	const spanActive = []
-	const path = 'http://89.108.77.72:5000/'
+	const api = require('../../../path/api_url')
+	const path = api.API_URL
 	const avatarURL = currentUser.avatar ? `${path + currentUser.avatar}` : avatarLogo
 
 	let [isActive, setIsActive] = useState(false)

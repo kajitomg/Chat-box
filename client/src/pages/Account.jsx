@@ -15,7 +15,8 @@ const Account = () => {
 	let user = useSelector(state => state.user.user)
 	let currentUser = useSelector(state => state.user.currentUser)
 	const [modalVisible, setModalVisible] = useState(false)
-	const path = 'http://89.108.77.72:5000/'
+	const api = require('../path/api_url')
+	const path = api.API_URL
 	const avatarURL = user.avatar ? `${path + user.avatar}` : avatarLogo
 	const dispatch = useDispatch()
 	const [fetchUser] = useFetching(async () => {

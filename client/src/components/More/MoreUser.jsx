@@ -6,7 +6,8 @@ import { leavetheroom, loadrooms } from '../../actions/room'
 import { useDispatch } from 'react-redux'
 
 const MoreUser = ({ navigate, user, users, chat }) => {
-	const path = 'http://89.108.77.72:5000/'
+	const api = require('../../path/api_url')
+	const path = api.API_URL
 	const avatarURL = chat.avatar ? `${path + user.avatar}` : avatarLogo
 	const dispatch = useDispatch()
 	return (

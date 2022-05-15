@@ -178,6 +178,7 @@ router.post('/upload-avatar',
 			res.json({ message: 'Upload avatar error' })
 		}
 	})
+
 router.post('/delete-avatar',
 	async (req, res) => {
 		try {

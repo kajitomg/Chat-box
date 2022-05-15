@@ -33,7 +33,8 @@ const MoreCreator = ({ navigate, user, users, chat, moreInfo, editAvatar, setEdi
 	const [linksIsActive, setLinksIsActive] = useState(true)
 	const [editRoomName, setEditRoomName] = useState(false)
 	const [editRoomDescription, setEditRoomDescription] = useState(false)
-	const path = 'http://89.108.77.72:5000/'
+	const api = require('../../path/api_url')
+	const path = api.API_URL
 	const avatarURL = chat.avatar ? `${path + chat.avatar}` : avatarLogo
 	if (moreInfo) {
 		chatMore.push('active')

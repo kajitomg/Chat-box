@@ -2,7 +2,8 @@ import { addRoom, gotoRoom, loadRooms } from '../reducers/roomReducer'
 import { getUserReducer, setUser } from '../reducers/userReducer'
 
 const axios = require('axios')
-const path = 'http://89.108.77.72:5000/'
+const api = require('../path/api_url')
+const path = api.API_URL
 export const createroom = (roomname, headers) => {
 	return async dispatch => {
 		try {
