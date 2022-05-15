@@ -106,7 +106,10 @@ const MoreCreator = ({ navigate, user, users, chat, moreInfo, editAvatar, setEdi
 												<div className="room-avatar__change">Change Avatar</div>
 											</label>
 											<div className="room-avatar__delete" onClick={() => {
-												dispatch(deleteRoomAvatar(chat._id))
+												if (chat.avatar) {
+													return dispatch(deleteRoomAvatar(chat._id))
+												}
+												return
 											}}>Delete Avatar</div>
 										</div>
 										<img src={avatarURL} alt="" />
