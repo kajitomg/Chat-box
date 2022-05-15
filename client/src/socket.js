@@ -3,7 +3,8 @@ import io from 'socket.io-client'
 
 
 
-const socket = io('http://89.108.77.72:5000/')
+const path = 'http://89.108.77.72:5000/'
+const socket = io(path)
 
 
 

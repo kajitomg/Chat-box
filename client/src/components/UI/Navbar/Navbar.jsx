@@ -17,7 +17,8 @@ const Navbar = ({ username }) => {
 	const navbarLinks = [classes.navbarLinks]
 	const navbarLink = [classes.navbarLink]
 	const spanActive = []
-	const avatarURL = currentUser.avatar ? `http://89.108.77.72:5000/${currentUser.avatar}` : avatarLogo
+	const path = 'http://89.108.77.72:5000/'
+	const avatarURL = currentUser.avatar ? `${path + currentUser.avatar}` : avatarLogo
 
 	let [isActive, setIsActive] = useState(false)
 	if (isActive) {
@@ -70,6 +71,11 @@ const Navbar = ({ username }) => {
 					<div className={navbarLinks.join(' ')}>
 						<Link to="/login" className={navbarLink.join(' ')}>Login</ Link>
 						<Link to="/registration" className={navbarLink.join(' ')}>Registration</Link >
+					</div>
+					<div className={navbarBurger.join(' ')} onClick={() => setIsActive(!isActive)}>
+						<span className={spanActive.join(' ')}></span>
+						<span className={spanActive.join(' ')}></span>
+						<span className={spanActive.join(' ')}></span>
 					</div>
 				</div>
 			}

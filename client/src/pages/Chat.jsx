@@ -35,6 +35,7 @@ const Chat = () => {
 	const scrollEnd = useRef(null)
 	const scrollTop = useRef(null)
 	const [message, setMessage] = useState('')
+	const path = 'http://89.108.77.72:5000/'
 	const [fetchMessages, isMessagesLoading] = useFetching(async () => {
 		if (messages.length === 0) {
 			await dispatch(loadmessages(chatID))
@@ -208,7 +209,7 @@ const Chat = () => {
 								?
 								users.map((user, i) =>
 									<li key={user._id} className='chat__user' >
-										{<img className='chat__avatar' src={user.avatar ? `http://89.108.77.72:5000/${user.avatar}` : avatarLogo} alt="" />}{user.username}
+										{<img className='chat__avatar' src={user.avatar ? `${path + user.avatar}` : avatarLogo} alt="" />}{user.username}
 									</li>
 								)
 								:

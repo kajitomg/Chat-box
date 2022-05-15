@@ -6,7 +6,8 @@ import { leavetheroom, loadrooms } from '../../actions/room'
 import { useDispatch } from 'react-redux'
 
 const MoreUser = ({ navigate, user, users, chat }) => {
-	const avatarURL = chat.avatar ? `http://89.108.77.72:5000/${chat.avatar}` : avatarLogo
+	const path = 'http://89.108.77.72:5000/'
+	const avatarURL = chat.avatar ? `${path + user.avatar}` : avatarLogo
 	const dispatch = useDispatch()
 	return (
 		chat.role.map(role =>
@@ -81,7 +82,7 @@ const MoreUser = ({ navigate, user, users, chat }) => {
 											<li className="users__user users__user-creator user" key={user._id} onClick={() =>
 												navigate(`/Account/${user._id}`)
 											}>
-												{<img className='user__avatar' src={user.avatar ? `http://89.108.77.72:5000/${user.avatar}` : avatarLogo} alt="" />}
+												{<img className='user__avatar' src={user.avatar ? `${path + user.avatar}` : avatarLogo} alt="" />}
 												{user.username}
 												{<img className='user__crown' src={creatorCrown} alt="" />}
 											</li>
@@ -95,7 +96,7 @@ const MoreUser = ({ navigate, user, users, chat }) => {
 											<li className="users__user users__user-administrator user" key={user._id} onClick={() =>
 												navigate(`/Account/${user._id}`)
 											}>
-												{<img className='user__avatar' src={user.avatar ? `http://89.108.77.72:5000/${user.avatar}` : avatarLogo} alt="" />}
+												{<img className='user__avatar' src={user.avatar ? `${path + user.avatar}` : avatarLogo} alt="" />}
 												{<div>{user.username}</div>}
 												{<img className='user__star' src={administratorStar} alt="" />}
 											</li>
@@ -110,7 +111,7 @@ const MoreUser = ({ navigate, user, users, chat }) => {
 											<li className="users__user user" key={user._id} onClick={() =>
 												navigate(`/Account/${user._id}`)
 											}>
-												{<img className='user__avatar' src={user.avatar ? `http://89.108.77.72:5000/${user.avatar}` : avatarLogo} alt="" />}
+												{<img className='user__avatar' src={user.avatar ? `${path + user.avatar}` : avatarLogo} alt="" />}
 												{user.username}
 											</li>
 

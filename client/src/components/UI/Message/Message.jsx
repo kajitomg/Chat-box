@@ -12,7 +12,8 @@ const Message = ({ name, time, message, username, user, userid, current }) => {
 	const messageMessage = [cl.messageMessage]
 	const messageAvatar = [cl.messageAvatar]
 	const messageContent = [cl.messageContent]
-	const avatarURL = user[0] !== undefined ? user[0].avatar ? `http://localhost:5000/${user[0].avatar}` : avatarLogo : avatarLogo
+	const path = 'http://89.108.77.72:5000/'
+	const avatarURL = user[0] !== undefined ? user[0].avatar ? `${path + user[0].avatar}` : avatarLogo : avatarLogo
 	if (current) {
 		messageBody.push(cl.currentUser)
 		messageText.push(cl.currentUser)
