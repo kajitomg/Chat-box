@@ -170,7 +170,7 @@ router.post('/upload-avatar',
 			const file = req.files.file
 			const room = await chatRoom.findOne({ _id: req.body.data })
 			const avatarName = Uuid.v4() + '.jpg'
-			file.mv(req.filePath + "\\" + avatarName)
+			file.mv(req.filePath + "/" + avatarName)
 			room.avatar = avatarName
 			await room.save()
 			res.status(200).json({ room })
@@ -183,7 +183,7 @@ router.post('/delete-avatar',
 	async (req, res) => {
 		try {
 			const room = await chatRoom.findOne({ _id: req.body.roomid })
-			fs.unlinkSync(req.filePath + "\\" + room.avatar)
+			fs.unlinkSync(req.filePath + "/" + room.avatar)
 			room.avatar = null
 			await room.save()
 			res.status(200).json({ room })
