@@ -4,10 +4,8 @@ const User = require('../models/user.js')
 const authMiddleware = require('../middleware/auth.middleware.js')
 const authPostMiddleware = require('../middleware/authPost.middleware')
 const Uuid = require('uuid')
-const config = require('config')
 const fs = require("fs")
-const filePathMiddleware = require('../middleware/filepath.middleware');
-const path = require('path')
+
 
 
 const router = new Router()
@@ -172,7 +170,7 @@ router.post('/upload-avatar',
 			const file = req.files.file
 			const room = await chatRoom.findOne({ _id: req.body.data })
 			const avatarName = Uuid.v4() + '.jpg'
-			file.mv(filePathMiddleware(path.resolve(__dirname, 'static')) + "\\" + avatarName)
+			file.mv(req.filePath + "\\" + avatarName)
 			room.avatar = avatarName
 			await room.save()
 			res.status(200).json({ room })
@@ -184,7 +182,7 @@ router.post('/delete-avatar',
 	async (req, res) => {
 		try {
 			const room = await chatRoom.findOne({ _id: req.body.roomid })
-			fs.unlinkSync(filePathMiddleware(path.resolve(__dirname, 'static')) + "\\" + room.avatar)
+			fs.unlinkSync(req.filePath + "\\" + room.avatar)
 			room.avatar = null
 			await room.save()
 			res.status(200).json({ room })
