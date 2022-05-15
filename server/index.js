@@ -7,14 +7,11 @@ const messageRouter = require('./routes/message.routes')
 const userRouter = require('./routes/user.routes')
 const corsMiddleWare = require('./middleware/cors.middleware')
 const chatRoom = require("./models/chat-room")
-const jwt = require('jsonwebtoken')
-const { json } = require('express');
 const User = require('./models/user')
 const Message = require('./models/message')
 const cors = require('cors')
 const socket = require('socket.io');
 const fileUpload = require('express-fileupload')
-const authMiddleware = require('./middleware/auth.middleware');
 const filePathMiddleware = require('./middleware/filepath.middleware');
 const path = require('path')
 

@@ -5,6 +5,8 @@ const Uuid = require('uuid')
 const fs = require("fs")
 const authMiddleware = require("../middleware/auth.middleware")
 const config = require('config')
+const filePathMiddleware = require('../middleware/filepath.middleware');
+const path = require('path')
 
 
 const router = new Router()
@@ -36,7 +38,7 @@ router.post('/upload-avatar', authMiddleware,
 			const file = req.files.file
 			const user = await User.findOne({ _id: req.user.id })
 			const avatarName = Uuid.v4() + '.jpg'
-			file.mv(req.filePath + "\\" + avatarName)
+			file.mv(filePathMiddleware(path.resolve(__dirname, 'static')) + "\\" + avatarName)
 			user.avatar = avatarName
 			await user.save()
 			res.status(200).json({ user })
@@ -48,7 +50,7 @@ router.delete('/delete-avatar',
 	async (req, res) => {
 		try {
 			const user = await User.findOne({ _id: req.body.userID })
-			fs.unlinkSync((req.filePath + '\\' + user.avatar))
+			fs.unlinkSync((filePathMiddleware(path.resolve(__dirname, 'static')) + '\\' + user.avatar))
 			user.avatar = null
 			await user.save()
 			res.status(200).json(user)
