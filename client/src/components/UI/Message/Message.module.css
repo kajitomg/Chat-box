@@ -1,4 +1,7 @@
 .messageBody {
+	-moz-hyphens: auto;
+-webkit-hyphens: auto;
+-ms-hyphens: auto;
 	display: inline-block;
 	display: flex;
 	align-items: flex-start;
@@ -81,9 +84,12 @@
 	font-weight: 500;
 }
 .messageMessage{
+	-ms-hyphens: auto;
+	-webkit-hyphens: auto;
+	hyphens: auto;
 	display: flex;
 	line-height: 26px;
-	word-break:normal;
+	word-break:break-all;
 	justify-content: flex-start;
 	text-align: left;
 }
