@@ -9,7 +9,6 @@
 	justify-content: flex-start;
 }
 .messageBody.name {
-	display: inline-block;
 	display: flex;
 	flex-direction: row;
 	text-align: left;
@@ -20,7 +19,7 @@
 }
 .messageBody.currentUser {
 	align-items: flex-end;
-	text-align: right;
+	text-align: left;
 }
 .messageContent{
 	margin: 0 0 0 40px;
@@ -84,7 +83,7 @@
 .messageMessage{
 	display: flex;
 	line-height: 26px;
-	word-break:keep-all;
+	word-break:normal;
 	justify-content: flex-start;
 	text-align: left;
 }

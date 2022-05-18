@@ -87,8 +87,8 @@
 }
 .chat__list {
 	overflow-y: auto;
-	overflow-x: auto;
-	word-break: break-all;
+	overflow-x: hidden;
+	word-break:keep-all;
 }
 .chat__list::-webkit-scrollbar {
 	width: 0.1em;
