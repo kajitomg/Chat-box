@@ -83,6 +83,8 @@
 }
 .messageMessage{
 	display: flex;
+	line-height: 26px;
+	word-break:keep-all;
 	justify-content: flex-start;
 	text-align: left;
 }

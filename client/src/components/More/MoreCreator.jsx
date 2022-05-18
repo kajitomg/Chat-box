@@ -328,18 +328,18 @@ const MoreCreator = ({ navigate, user, users, chat, moreInfo, editAvatar, setEdi
 						</div>
 						<div className="more__column more__column-right">
 
-							<div className="more__delete-room" key={'delete' + user._id} onClick={async (e) => {
-								e.stopPropagation();
-								await dispatch(deleteroom(chat._id, user._id));
-								navigate('/chats/');
-								dispatch(loadrooms())
-							}}>
-								delete room
-							</div>
 
 
 							<div className="more__edit" key={'edit' + user._id}>
 								<img className="more__edit-gear" src={gear} alt="" />
+								<div className="more__delete-room" key={'delete' + user._id} onClick={async (e) => {
+									e.stopPropagation();
+									await dispatch(deleteroom(chat._id, user._id));
+									navigate('/chats/');
+									dispatch(loadrooms())
+								}}>
+									delete room
+								</div>
 							</div>
 
 							<div className="more__users-info">

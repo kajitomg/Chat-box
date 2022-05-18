@@ -197,6 +197,9 @@
 	left: 0;
 	background: #e7ddc3;
 } */
+.navbarBurger.active{
+	top: 14px;
+}
 .navbarBurger.active span:nth-child(2){
 	/* animation: BurgerRotateMiddleChild 0.5s forwards; */
 	display: none;

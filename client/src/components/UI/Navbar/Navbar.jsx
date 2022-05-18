@@ -69,7 +69,7 @@ const Navbar = ({ username }) => {
 				</div>
 				:
 				<div className={navbarContent.join(' ')}>
-					<div className={navbarLinks.join(' ')}>
+					<div className={navbarLinks.join(' ')} onClick={() => setIsActive(false)}>
 						<Link to="/login" className={navbarLink.join(' ')}>Login</ Link>
 						<Link to="/registration" className={navbarLink.join(' ')}>Registration</Link >
 					</div>
