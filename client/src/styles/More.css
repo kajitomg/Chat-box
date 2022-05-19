@@ -414,6 +414,8 @@
 	border-radius: 10px;
 	background: #2b1203;
 	max-width: 100%;
+	
+	min-height: 200px;
 	overflow: hidden;
 	padding: 1px;
 	color: #e7ddc3;
@@ -600,6 +602,7 @@
 }
 .more__users-info{
 	
+	min-height: 200px;
 	display: flex;
 	flex: 1 0 10%;
 	flex-direction: column;
@@ -995,6 +998,7 @@
 		background: #2b1203;
 		margin: 10px 20px 0 20px;
 		display: flex;
+		min-height: 200px;
 		flex: 1 1 100%;
 	}
 	.links__add{
