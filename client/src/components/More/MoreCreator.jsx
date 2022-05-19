@@ -91,56 +91,56 @@ const MoreCreator = ({ navigate, user, users, chat, moreInfo, editAvatar, setEdi
 					<div className="more__columns" key={'creator' + user._id}>
 						<div className="more__column more__column-left">
 							<div className="more__info">
-								<div className="more__preview">
-									<div className="more__room-avatar room-avatar active" key={'avatar' + user._id} onClick={(e) => {
-										e.stopPropagation();
-										setEditAvatar(!editAvatar)
+								<div className="more__room-avatar room-avatar active" key={'avatar' + user._id} onClick={(e) => {
+									e.stopPropagation();
+									setEditAvatar(!editAvatar)
+								}}>
+									<div className={avatarEdit.join(' ')} onClick={(e) => {
+										e.stopPropagation()
 									}}>
-										<div className={avatarEdit.join(' ')} onClick={(e) => {
-											e.stopPropagation()
-										}}>
-											<input accept='image/*' type="file" id="input__file" className="input input__file" onChange={(e) => {
-												changeHandler(e)
-											}} />
-											<label htmlFor="input__file" className="input__file-button">
-												<div className="room-avatar__change">Change Avatar</div>
-											</label>
-											<div className="room-avatar__delete" onClick={() => {
-												if (chat.avatar) {
-													return dispatch(deleteRoomAvatar(chat._id))
-												}
-												return
-											}}>Delete Avatar</div>
-										</div>
-										<img src={avatarURL} alt="" />
+										<input accept='image/*' type="file" id="input__file" className="input input__file" onChange={(e) => {
+											changeHandler(e)
+										}} />
+										<label htmlFor="input__file" className="input__file-button">
+											<div className="room-avatar__change">Change Avatar</div>
+										</label>
+										<div className="room-avatar__delete" onClick={() => {
+											if (chat.avatar) {
+												return dispatch(deleteRoomAvatar(chat._id))
+											}
+											return
+										}}>Delete Avatar</div>
 									</div>
-									<div className="more__roomname">
-										{
-											editRoomName
-												?
-												<div className="more__roomname-true creator" key={'roomname' + user._id}>
-													<input value={roomName} className="more__roomname-input" accept='image/*' type="text" onChange={(e) => {
-														setRoomName(e.target.value)
-													}} />
-													<img className="more__roomname-galochka" src={galochka} alt="" onClick={async () => {
-														await dispatch(editChatName(chat._id, roomName));
-														await setEditRoomName(false)
-													}}
-													/>
-													<img className="more__roomname-krest" src={krest} alt="" onClick={() => {
-														setEditRoomName(false)
-													}} />
-												</div>
-												:
-												<div className="more__roomname-false creator" key={'roomname' + user._id}>
-													<div className="more__roomname-name">{chat.roomname}</div>
+									<img src={avatarURL} alt="" />
+								</div>
+								<div className="more__roomname">
+									{
+										editRoomName
+											?
+											<div className="more__roomname-true creator" key={'roomname' + user._id}>
+												<input value={roomName} className="more__roomname-input" accept='image/*' type="text" onChange={(e) => {
+													setRoomName(e.target.value)
+												}} />
+												<img className="more__roomname-galochka" src={galochka} alt="" onClick={async () => {
+													await dispatch(editChatName(chat._id, roomName));
+													await setEditRoomName(false)
+												}}
+												/>
+												<img className="more__roomname-krest" src={krest} alt="" onClick={() => {
+													setEditRoomName(false)
+												}} />
+											</div>
+											:
+											<div className="more__roomname-false creator" key={'roomname' + user._id}>
+												<div className="more__roomname-name">{chat.roomname}</div>
+												<div className='more__roomname-wrapper'>
 													<img className="more__roomname-pencil" src={pencil} alt="" onClick={() => {
 														setEditRoomName(true);
 														setRoomName(chat.roomname)
 													}} />
 												</div>
-										}
-									</div>
+											</div>
+									}
 								</div>
 							</div>
 							<div className="more__descrption description">
@@ -162,19 +162,15 @@ const MoreCreator = ({ navigate, user, users, chat, moreInfo, editAvatar, setEdi
 										:
 										<div className='description__wrapper description__wrapper-false' key={'roomdescription' + user._id}>
 											<div className="description__text description__text-false">
-												&#160;&#160;&#160;&#160;&#160;
-												&#160;&#160;&#160;&#160;&#160;
-												&#160;&#160;&#160;&#160;&#160;
-												&#160;&#160;&#160;&#160;&#160;
-												&#160;&#160;&#160;&#160;&#160;
-												&#160;&#160;&#160;&#160;
-												&#160;&#160;&#160;&#160;
 												{chat.description ? chat.description : 'Room description'}
 											</div>
-											<img className="description__pencil" src={pencil} alt="" onClick={() => {
-												setEditRoomDescription(true);
-												setRoomDescription(chat.description)
-											}} />
+											<div className='description__edit-wrapper'>
+												<img className="description__pencil" src={pencil} alt="" onClick={() => {
+													setEditRoomDescription(true);
+													setRoomDescription(chat.description)
+												}} />
+											</div>
+
 										</div>
 								}
 							</div>
@@ -196,16 +192,21 @@ const MoreCreator = ({ navigate, user, users, chat, moreInfo, editAvatar, setEdi
 											<ul className="links__list">
 												{chat.links.map((link) =>
 													<li className="links__link" key={'roomlink' + link.id}>
-														<div className="links__link-name">{link.linkname}</div>
-														<div className="links__link-colon">:</div>
-														<a href={link.link} className="links__link-link">{link.link}</a>
-														<img className="links__pencil" src={pencil} alt="" onClick={() => {
-															setModalEditVisible(true);
-															setLinkName('');
-															setLinkLink('');
-															setLinkID(link.id)
-														}} />
-														<img className="links__trasher" src={trasher} alt="" />
+														<div className='link__name-wrapper'>
+															<span className="links__link-name">{link.linkname}</span>
+															<a href={link.link} className="links__link-link">
+																{link.link}
+															</a>
+														</div>
+														<div className='link__interaction-wrapper'>
+															<img className="links__pencil" src={pencil} alt="" onClick={() => {
+																setModalEditVisible(true);
+																setLinkName('');
+																setLinkLink('');
+																setLinkID(link.id)
+															}} />
+															<img className="links__trasher" src={trasher} alt="" />
+														</div>
 													</li>
 												)}
 											</ul>
@@ -215,18 +216,24 @@ const MoreCreator = ({ navigate, user, users, chat, moreInfo, editAvatar, setEdi
 											<ul className="links__list">
 												{chat.links.map((link) =>
 													<li className="links__link" key={'roomlink' + link.id}>
-														<div className="links__link-name">{link.linkname}</div>
-														<div className="links__link-colon">:</div>
-														<a href={link.link} className="links__link-link">{link.link}</a>
-														<img className="links__pencil" src={pencil} alt="" onClick={() => {
-															setModalEditVisible(true);
-															setLinkName('');
-															setLinkLink('');
-															setLinkID(link.id)
-														}} />
-														<img className="links__trasher" src={trasher} alt="" onClick={() => {
-															dispatch(deleteLink(link.id, chat._id))
-														}} />
+														<div className='link__name-wrapper'>
+															<span className="links__link-name">{link.linkname}</span>
+															<a href={link.link} className="links__link-link">
+																{link.link}
+															</a>
+														</div>
+														<div className='link__interaction-wrapper'>
+															<img className="links__pencil" src={pencil} alt="" onClick={() => {
+																setModalEditVisible(true);
+																setLinkName('');
+																setLinkLink('');
+																setLinkID(link.id)
+															}} />
+															<img className="links__trasher" src={trasher} alt="" onClick={() => {
+																dispatch(deleteLink(link.id, chat._id))
+															}} />
+														</div>
+
 													</li>
 												)}
 											</ul>
@@ -404,7 +411,7 @@ const MoreCreator = ({ navigate, user, users, chat, moreInfo, editAvatar, setEdi
 								leavetheroom(chat._id, user._id);
 								navigate('/chats/');
 								dispatch(loadrooms())
-							}}>Leave room</div>
+							}}><span>Leave room</span></div>
 						</div>
 					</div>
 					:

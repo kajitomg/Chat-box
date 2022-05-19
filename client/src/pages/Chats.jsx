@@ -20,8 +20,11 @@ const Chats = () => {
 	const headers = { authorization: `Bearer ${localStorage.getItem('token')}` }
 	const [isRoomLoading, setIsRoomLoading] = useState(false)
 	const rooms = useSelector(state => state.room.rooms)
+	const api = require('../path/api_url')
+	const path = api.API_URL
 	const user = useSelector(state => state.user.currentUser)
 	const navigate = useNavigate()
+	console.log(rooms)
 	useEffect(async () => {
 		socket.emit('clear-room')
 		socket.removeListener('connect-to-room')
@@ -72,10 +75,12 @@ const Chats = () => {
 				{isRoomLoading
 					? <div className='chats__loader'><Loader /></div>
 					: rooms.map(room =>
-						<div key={room.id} className="chats__room" onClick={async () => {
+						<div key={room.id} className="chats__room room" onClick={async () => {
 							navigate(`/chat/${room.id}`);
 						}}>
-							{room.roomname}
+
+							{room.avatar ? <img className='room__avatar' src={`${path + room.avatar}`} alt="" /> : ''}
+							<div className='room__roomname'>{room.roomname}<span className='room__id'>@{room.id.slice(0, 6)}</span></div>
 							{/* <div className='chats__deleteroom' onClick={async (e) => { e.stopPropagation(); await dispatch(deleteroom(room.id, user._id)) }}>
 								<span></span>
 								<span></span>

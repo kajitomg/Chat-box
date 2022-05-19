@@ -17,6 +17,7 @@ const MoreUser = ({ navigate, user, users, chat }) => {
 	const [usersIsActive, setUsersIsActive] = useState(false)
 	const [linksIsActive, setLinksIsActive] = useState(true)
 	const dispatch = useDispatch()
+	console.log(chat)
 	if (linksIsActive) {
 		moreLinks.push('active')
 		moreLinksWrapper.push('active')
@@ -49,7 +50,7 @@ const MoreUser = ({ navigate, user, users, chat }) => {
 									</div>
 									<div className="more__roomname">
 										<div className="more__roomname-false user" key={'roomname' + user._id}>
-											<div className="more__roomname-name">{chat.roomname}</div>
+											<div className="more__roomname-name user">{chat.roomname}</div>
 										</div>
 									</div>
 								</div>
@@ -57,14 +58,6 @@ const MoreUser = ({ navigate, user, users, chat }) => {
 							<div className="more__descrption description">
 								<div className='description__wrapper description__wrapper-false user' key={'roomdescription' + user._id}>
 									<div className="description__text description__text-false">
-										&#160;&#160;&#160;&#160;
-										&#160;&#160;&#160;&#160;
-										&#160;&#160;&#160;&#160;
-										&#160;&#160;&#160;&#160;
-										&#160;&#160;&#160;&#160;
-										&#160;&#160;&#160;&#160;
-										&#160;&#160;&#160;&#160;
-										&#160;&#160;&#160;&#160;
 										{chat.description ? chat.description : 'Room description'}
 									</div>
 								</div>
@@ -84,9 +77,11 @@ const MoreUser = ({ navigate, user, users, chat }) => {
 									<ul className="links__list">
 										{chat.links.map((link) =>
 											<li className="links__link" key={'roomlink' + link.id}>
-												<div className="links__link-name">{link.linkname}</div>
-												<div className="links__link-colon">:</div>
-												<a href={link.link} className="links__link-link" >{link.link}</a>
+												<div className='link__name-wrapper'>
+
+													<div className="links__link-name">{link.linkname}</div>
+													<a href={link.link} className="links__link-link" >{link.link}</a>
+												</div>
 											</li>
 										)}
 									</ul>
@@ -214,7 +209,7 @@ const MoreUser = ({ navigate, user, users, chat }) => {
 								leavetheroom(chat._id, user._id);
 								navigate('/chats/');
 								dispatch(loadrooms())
-							}}>Leave room</div>
+							}}><span>Leave room</span></div>
 						</div>
 					</div>
 					: ''

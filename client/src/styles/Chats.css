@@ -70,6 +70,38 @@
 	word-break: break-all;
 	height: calc(100% - 110px);
 }
+.room__avatar{
+	z-index: 2;
+	background: rgba(0, 0, 0, 0.445);
+}
+.chats__room img{
+	cursor: pointer;
+	width: inherit;
+	height: inherit;
+	z-index: 1;
+	opacity: 0.4;
+	border-radius: 20px;
+	object-fit: cover;
+}
+.room__roomname{
+	overflow: hidden;
+	font-weight: 700;
+	z-index: 2;
+	position: absolute;
+	width: calc(100% - 5px);
+	height: calc(100% - 5px);
+	top: 0;
+	left: 0;
+	
+	border-radius: 20px;
+	padding: 5px;
+	margin: 5px;
+}
+.room__id{
+	font-weight: 500;
+	color: #e7ddc39d;
+	font-size: 12px;
+}
 .chats__rooms::-webkit-scrollbar {
 	width: 0.1em;
 }

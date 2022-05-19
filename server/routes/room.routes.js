@@ -33,7 +33,7 @@ router.get('/load-rooms', authMiddleware,
 			let roomsBody = await chatRoom.find({ _id: { $in: user.rooms } })
 			let resRooms = []
 			roomsBody.forEach((room, id) => {
-				resRooms = [...resRooms, { id: room._id, users: room.users, usernames: room.usernames, roomname: room.roomname, }]
+				resRooms = [...resRooms, { id: room._id, users: room.users, usernames: room.usernames, roomname: room.roomname, avatar: room.avatar }]
 			})
 
 			await res.json({ rooms: resRooms })
