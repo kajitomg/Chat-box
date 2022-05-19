@@ -43,7 +43,7 @@
 .more__column-left{
 	display: flex;
 	flex-direction: column;
-	overflow: hidden;
+	overflow: auto;
 	word-break: break-all;
 	position: relative;
 	flex:1 0 70%;
