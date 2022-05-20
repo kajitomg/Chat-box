@@ -80,7 +80,6 @@
 }
 .chat__wrapper{
 	flex: 1 0 100%;
-	max-width: 100%;
 	height: calc(100% - 100px);
 	display: flex;
 	flex-direction: column;

@@ -46,9 +46,84 @@ const Account = () => {
 		const file = e.target.files[0]
 		dispatch(uploadUserAvatar(file, currentUser._id))
 	}
+	console.log(currentUser._id, user._id)
 	return (
 		<section className="account">
-			<div className='account__body'>
+			{
+				currentUser._id === user._id
+					?
+					<div className='account__body'>
+						<div className='account__columns'>
+							<MyModal visible={modalVisible} setVisible={setModalVisible}>
+								<input accept='image/*' onChange={(e) => { changeHandler(e) }} type='file' placeholder='Edit avatar' />
+							</MyModal>
+							<div className="account__column-left account__column">
+								<div className='account__avatar'>
+									{user.info !== undefined
+										? <img src={avatarURL} alt="" />
+										: ''
+									}
+								</div>
+								<div className='account__username'>{user.username}</div>
+								<div className='account__online'>
+									{user.info !== undefined
+										?
+										user.info.online
+											? <div className='account__online-online'>Online</div>
+											: <div className='account__online-offline'>Offline</div>
+										:
+										<Loader />
+									}
+								</div>
+
+								<div className='account__edit' onClick={() => setModalVisible(true)}>
+									edit account
+								</div>
+
+							</div>
+							<div className="account__column-right account__column">
+								<ul className="account__rooms">
+									<li className="account__room">
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					:
+					<div className='account__body'>
+						<div className='account__columns'>
+							<MyModal visible={modalVisible} setVisible={setModalVisible}>
+								<input accept='image/*' onChange={(e) => { changeHandler(e) }} type='file' placeholder='Edit avatar' />
+							</MyModal>
+							<div className="account__column-left account__column">
+								<div className='account__avatar'>
+									{user.info !== undefined
+										? <img src={avatarURL} alt="" />
+										: ''
+									}
+								</div>
+								<div className='account__username'>{user.username}</div>
+								<div className='account__online'>
+									{user.info !== undefined
+										?
+										user.info.online
+											? <div className='account__online-online'>Online</div>
+											: <div className='account__online-offline'>Offline</div>
+										:
+										<Loader />
+									}
+								</div>
+							</div>
+							<div className="account__column-right account__column">
+								<ul className="account__rooms">
+									<li className="account__room">
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+			}
+			{/* <div className='account__body'>
 				<div className='account__columns'>
 					<MyModal visible={modalVisible} setVisible={setModalVisible}>
 						<input accept='image/*' onChange={(e) => { changeHandler(e) }} type='file' placeholder='Edit avatar' />
@@ -71,14 +146,11 @@ const Account = () => {
 								<Loader />
 							}
 						</div>
-						{
-							currentUser._id === user._id
-								?
-								<div className='account__edit' onClick={() => setModalVisible(true)}>
-									edit account
-								</div>
-								: ''
-						}
+						
+							<div className='account__edit' onClick={() => setModalVisible(true)}>
+								edit account
+							</div>
+						
 					</div>
 					<div className="account__column-right account__column">
 						<ul className="account__rooms">
@@ -87,7 +159,7 @@ const Account = () => {
 						</ul>
 					</div>
 				</div>
-			</div>
+			</div> */}
 		</section>
 	)
 }

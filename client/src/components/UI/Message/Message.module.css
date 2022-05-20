@@ -89,7 +89,8 @@
 	font-weight: 500;
 }
 .messageMessage{
-	white-space: pre-line;
+	
+	word-break: break-all;
 	-ms-hyphens: auto;
 	-webkit-hyphens: auto;
 	hyphens: auto;
