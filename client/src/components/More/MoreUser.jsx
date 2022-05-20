@@ -8,7 +8,7 @@ import { useDispatch } from 'react-redux'
 const MoreUser = ({ navigate, user, users, chat }) => {
 	const api = require('../../path/api_url')
 	const path = api.API_URL
-	const avatarURL = chat.avatar ? `${path + user.avatar}` : avatarLogo
+	const avatarURL = chat.avatar ? `${path + chat.avatar}` : avatarLogo
 	const moreUsers = ['more__users-btn']
 	const moreLinks = ['more__links-btn']
 	const moreLinksAdd = ['links__add']
@@ -44,14 +44,12 @@ const MoreUser = ({ navigate, user, users, chat }) => {
 					? <div className="more__columns" key={'user' + user._id}>
 						<div className="more__column more__column-left">
 							<div className="more__info">
-								<div className="more__preview">
-									<div className="more__room-avatar room-avatar" key={'avatar' + user._id}>
-										<img src={avatarURL} alt="" />
-									</div>
-									<div className="more__roomname">
-										<div className="more__roomname-false user" key={'roomname' + user._id}>
-											<div className="more__roomname-name user">{chat.roomname}</div>
-										</div>
+								<div className="more__room-avatar room-avatar" key={'avatar' + user._id}>
+									<img src={avatarURL} alt="" />
+								</div>
+								<div className="more__roomname">
+									<div className="more__roomname-false user" key={'roomname' + user._id}>
+										<div className="more__roomname-name user">{chat.roomname}</div>
 									</div>
 								</div>
 							</div>

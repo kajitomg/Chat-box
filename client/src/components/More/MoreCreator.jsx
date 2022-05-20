@@ -194,8 +194,8 @@ const MoreCreator = ({ navigate, user, users, chat, moreInfo, editAvatar, setEdi
 													<li className="links__link" key={'roomlink' + link.id}>
 														<div className='link__name-wrapper'>
 															<span className="links__link-name">{link.linkname}</span>
-															<a href={link.link} className="links__link-link">
-																{link.link}
+															<a href={`http://${link.link}`} className="links__link-link">
+																http://{link.link}
 															</a>
 														</div>
 														<div className='link__interaction-wrapper'>
@@ -218,8 +218,8 @@ const MoreCreator = ({ navigate, user, users, chat, moreInfo, editAvatar, setEdi
 													<li className="links__link" key={'roomlink' + link.id}>
 														<div className='link__name-wrapper'>
 															<span className="links__link-name">{link.linkname}</span>
-															<a href={link.link} className="links__link-link">
-																{link.link}
+															<a href={`http://${link.link}`} className="links__link-link">
+																http://{link.link}
 															</a>
 														</div>
 														<div className='link__interaction-wrapper'>
