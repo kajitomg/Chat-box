@@ -105,13 +105,20 @@ const Chat = () => {
 				</div>
 				<div className='chat__message-place'>
 					<div className="chat__header">
-						{/* <div className='chat__button-more chat__button-more-message-place' onClick={() =>
-							setMoreInfo(!moreInfo)
-						}>
-							<span></span>
-							<span></span>
-							<span></span>
-						</div> */}
+						{chat._id !== undefined
+							? <div className='chat__button-more chat__button-more-message-place' onClick={() =>
+								setMoreInfo(!moreInfo)
+							}>
+								<span></span>
+								<span></span>
+								<span></span>
+							</div>
+							: <div className='chat__button-more chat__button-more-message-place'>
+								<span></span>
+								<span></span>
+								<span></span>
+							</div>
+						}
 					</div>
 					<div className='chat__wrapper'>
 						<ul className='chat__list' onScroll={scrollHadler}>

@@ -28,7 +28,6 @@
 	display: flex;
 	align-items: flex-start;
 	flex-wrap: wrap;
-	max-width: 70%;
 	flex: 1 0 70%;
 	height: 100%;
 }

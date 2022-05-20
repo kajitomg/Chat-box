@@ -115,7 +115,8 @@ body {
 }
 
 .content {
-	overflow: hidden;
+	overflow-x: hidden;
+	overflow-y: auto;
 	justify-content: flex-start;
 	background: #ffe6a72a;
 	position: relative;
