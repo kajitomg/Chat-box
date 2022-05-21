@@ -98,6 +98,7 @@
 	text-align: left;
 }
 .messageMessage.currentUser{
+	word-break: break-all;
 	display: flex;
 	justify-content: flex-end;
 }

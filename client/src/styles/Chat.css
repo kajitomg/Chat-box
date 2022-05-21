@@ -14,6 +14,7 @@
 }
 .chat__case.active{
 	display: flex;
+	max-width:100%;
 }
 
 .chat__loader-container {
@@ -28,6 +29,7 @@
 	align-items: flex-start;
 	flex-wrap: wrap;
 	flex: 1 0 70%;
+	max-width: 70%;
 	height: 100%;
 }
 .chat__back {
@@ -112,6 +114,7 @@
 	flex-direction: column;
 	padding: 20px 0 0 0;
 	margin: 0 0 0 1px;
+	max-width: 29%;
 	flex: 1 0 29%;
 }
 
@@ -218,6 +221,7 @@
 		background: #e7ddc3;
 	}
 	.chat__info {
+		max-width: 100%;
 		display: none;
 	}
 	.chat__button-more-info{
@@ -226,4 +230,8 @@
 	.chat__button-more-message-place{
 		display: flex;
 	}  
+	.chat__message-place{
+		flex: 1 0 100%;
+		max-width: 100%;
+	}
 }
