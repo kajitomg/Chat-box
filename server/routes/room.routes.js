@@ -196,6 +196,7 @@ router.post('/edit-name',
 		try {
 			const room = await chatRoom.findOne({ _id: req.body.roomid })
 			room.roomname = req.body.roomname
+			room.roomname_lower = req.body.roomname.toLowerCase()
 			await room.save()
 			res.status(200).json({ room })
 		} catch (e) {

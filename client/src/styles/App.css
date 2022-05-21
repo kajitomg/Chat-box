@@ -95,7 +95,7 @@ body {
 	overflow: visible;
 }
 .main-screen {
-	overflow: hidden;
+	overflow: visible;
 	display: flex;
 	flex-direction: column;
 	flex: 1 0 100%;
@@ -126,4 +126,5 @@ body {
 	overflow: hidden;
 	max-width: 1080px;
 	margin: 0 auto;
+	overflow: visible;
 }
