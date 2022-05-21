@@ -24,7 +24,6 @@ const Chats = () => {
 	const path = api.API_URL
 	const user = useSelector(state => state.user.currentUser)
 	const navigate = useNavigate()
-	console.log(rooms)
 	useEffect(async () => {
 		socket.emit('clear-room')
 		socket.removeListener('connect-to-room')

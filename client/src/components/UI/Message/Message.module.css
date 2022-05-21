@@ -70,7 +70,6 @@
 	font-weight: 700;
 }
 .messageText {
-	word-break: break-all;
 	-moz-hyphens: auto;
 	-webkit-hyphens: auto;
 	-ms-hyphens: auto;
@@ -89,7 +88,6 @@
 	font-weight: 500;
 }
 .messageMessage{
-	
 	word-break: break-all;
 	-ms-hyphens: auto;
 	-webkit-hyphens: auto;

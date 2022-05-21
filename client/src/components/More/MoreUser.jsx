@@ -17,7 +17,6 @@ const MoreUser = ({ navigate, user, users, chat }) => {
 	const [usersIsActive, setUsersIsActive] = useState(false)
 	const [linksIsActive, setLinksIsActive] = useState(true)
 	const dispatch = useDispatch()
-	console.log(chat)
 	if (linksIsActive) {
 		moreLinks.push('active')
 		moreLinksWrapper.push('active')
