@@ -1,7 +1,7 @@
 .chat {
 	margin: 60px 0 0 0;
 	padding: 10px 0 0 0;
-	height: calc(100vh - 70px);
+	height: calc(100% - 10px);
 }
 .chat__case{
 	position: relative;

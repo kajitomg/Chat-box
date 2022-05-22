@@ -127,6 +127,6 @@ body {
 	overflow: hidden;
 	max-width: 1080px;
 	margin: 0 auto;
-	
+	height: calc(100% - 60px);
 	overflow: visible;
 }
