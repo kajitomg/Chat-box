@@ -1,19 +1,24 @@
 import React, { useState } from 'react'
-import avatarLogo from '../../img/avatar/default-avatar.jpg'
-import creatorCrown from '../../img/icons/creator-crown.png'
-import administratorStar from '../../img/icons/administrator-star.png'
-import krest from '../../img/icons/krest.png'
-import galochka from '../../img/icons/galochka.png'
-import pencil from '../../img/icons/Pencil.png'
-import trasher from '../../img/icons/trasher.png'
-import gear from '../../img/icons/gear.png'
-import MyInput from '../UI/MyInput/MyInput'
-import MyModal from '../UI/MyModal/MyModal'
-import MyButton from '../UI/MyButton/MyButton'
-import { useDispatch } from 'react-redux'
-import { createLink, deleteLink, deleteroom, deleteRoomAvatar, editChatDescription, editChatName, editLink, leavetheroom, loadrooms, uploadRoomAvatar } from '../../actions/room'
+import avatarLogo from '../../../img/avatar/default-avatar.jpg'
+import creatorCrown from '../../../img/icons/creator-crown.png'
+import administratorStar from '../../../img/icons/administrator-star.png'
+import krest from '../../../img/icons/krest.png'
+import galochka from '../../../img/icons/galochka.png'
+import pencil from '../../../img/icons/Pencil.png'
+import trasher from '../../../img/icons/trasher.png'
+import gear from '../../../img/icons/gear.png'
+import MyInput from '../../../components/UI/MyInput/MyInput'
+import MyModal from '../../../components/UI/MyModal/MyModal'
+import MyButton from '../../../components/UI/MyButton/MyButton'
+import { useDispatch, useSelector } from 'react-redux'
+import { createLinkAction, deleteLinkAction, deleteRoomAction, deleteRoomAvatarAction, editChatDescriptionAction, editChatNameAction, editLinkAction, leaveRoomAction, loadRoomsAction, uploadRoomAvatarAction } from '../../../actions/room'
+import { useNavigate } from 'react-router-dom'
 
-const MoreCreator = ({ navigate, user, users, chat, moreInfo, editAvatar, setEditAvatar }) => {
+const MoreCreator = ({ editAvatar, setEditAvatar }) => {
+	const navigate = useNavigate()
+	const chat = useSelector(state => state.room.room)
+	const user = useSelector(state => state.user.currentUser)
+	const users = useSelector(state => state.user.users)
 	const [modalCreateVisible, setModalCreateVisible] = useState(false)
 	const [modalEditVisible, setModalEditVisible] = useState(false)
 	const [linkName, setLinkName] = useState('')
@@ -22,7 +27,6 @@ const MoreCreator = ({ navigate, user, users, chat, moreInfo, editAvatar, setEdi
 	const [roomName, setRoomName] = useState(chat.roomname)
 	const [roomDescription, setRoomDescription] = useState(chat.description)
 	const dispatch = useDispatch()
-	const chatMore = ['chat__more', 'more']
 	const avatarEdit = ['room-avatar__edit']
 	const moreUsers = ['more__users-btn']
 	const moreLinks = ['more__links-btn']
@@ -33,51 +37,33 @@ const MoreCreator = ({ navigate, user, users, chat, moreInfo, editAvatar, setEdi
 	const [linksIsActive, setLinksIsActive] = useState(true)
 	const [editRoomName, setEditRoomName] = useState(false)
 	const [editRoomDescription, setEditRoomDescription] = useState(false)
-	const api = require('../../path/api_url')
+	const api = require('../../../path/api_url')
 	const path = api.API_URL
 	const avatarURL = chat.avatar ? `${path + chat.avatar}` : avatarLogo
-	if (moreInfo) {
-		chatMore.push('active')
-	}
-	if (!moreInfo) {
-		chatMore.slice(-1, 1)
-	}
 	if (editAvatar) {
 		avatarEdit.push('active')
-	}
-	if (!editAvatar) {
-		avatarEdit.slice(-1, 1)
 	}
 	if (linksIsActive) {
 		moreLinks.push('active')
 		moreLinksWrapper.push('active')
 		moreLinksAdd.push('active')
 	}
-	if (!linksIsActive) {
-		moreLinks.slice(-1, 1)
-		moreLinksWrapper.slice(-1, 1)
-		moreLinksAdd.slice(-1, 1)
-	}
 	if (usersIsActive) {
 		moreUsers.push('active')
 		moreUsersWrapper.push('active')
 	}
-	if (!usersIsActive) {
-		moreUsers.slice(-1, 1)
-		moreUsersWrapper.slice(-1, 1)
-	}
 	function changeHandler(e) {
 		const file = e.target.files[0]
-		dispatch(uploadRoomAvatar(file, chat._id))
+		dispatch(uploadRoomAvatarAction(file, chat._id))
 	}
 	function linkCreate() {
 		if (!linkName || !linkLink) return
-		dispatch(createLink(linkName, linkLink, chat._id))
+		dispatch(createLinkAction(linkName, linkLink, chat._id))
 		setModalCreateVisible(false)
 	}
 	function linkEdit() {
 		if (!linkName || !linkLink) return
-		dispatch(editLink(linkName, linkLink, chat._id, linkID))
+		dispatch(editLinkAction(linkName, linkLink, chat._id, linkID))
 		setModalEditVisible(false)
 	}
 
@@ -106,7 +92,7 @@ const MoreCreator = ({ navigate, user, users, chat, moreInfo, editAvatar, setEdi
 										</label>
 										<div className="room-avatar__delete" onClick={() => {
 											if (chat.avatar) {
-												return dispatch(deleteRoomAvatar(chat._id))
+												return dispatch(deleteRoomAvatarAction(chat._id))
 											}
 											return
 										}}>Delete Avatar</div>
@@ -122,7 +108,7 @@ const MoreCreator = ({ navigate, user, users, chat, moreInfo, editAvatar, setEdi
 													setRoomName(e.target.value)
 												}} />
 												<img className="more__roomname-galochka" src={galochka} alt="" onClick={async () => {
-													await dispatch(editChatName(chat._id, roomName));
+													await dispatch(editChatNameAction(chat._id, roomName));
 													await setEditRoomName(false)
 												}}
 												/>
@@ -131,14 +117,14 @@ const MoreCreator = ({ navigate, user, users, chat, moreInfo, editAvatar, setEdi
 												}} />
 											</div>
 											:
-											<div className="more__roomname-false creator" key={'roomname' + user._id}>
-												<div className="more__roomname-name">{chat.roomname}</div>
-												<div className='more__roomname-wrapper'>
-													<img className="more__roomname-pencil" src={pencil} alt="" onClick={() => {
-														setEditRoomName(true);
-														setRoomName(chat.roomname)
-													}} />
+											<div className='more__roomname-wrapper'>
+												<div className="more__roomname-false creator" key={'roomname' + user._id}>
+													<div className="more__roomname-name">{chat.roomname}</div>
 												</div>
+												<img className="more__roomname-pencil" src={pencil} alt="" onClick={() => {
+													setEditRoomName(true);
+													setRoomName(chat.roomname)
+												}} />
 											</div>
 									}
 								</div>
@@ -152,7 +138,7 @@ const MoreCreator = ({ navigate, user, users, chat, moreInfo, editAvatar, setEdi
 												setRoomDescription(e.target.value)
 											}} />
 											<img className="description__galochka" src={galochka} alt="" onClick={async () => {
-												await dispatch(editChatDescription(chat._id, roomDescription));
+												await dispatch(editChatDescriptionAction(chat._id, roomDescription));
 												await setEditRoomDescription(false)
 											}} />
 											<img className="description__krest" src={krest} alt="" onClick={() => {
@@ -230,7 +216,7 @@ const MoreCreator = ({ navigate, user, users, chat, moreInfo, editAvatar, setEdi
 																setLinkID(link.id)
 															}} />
 															<img className="links__trasher" src={trasher} alt="" onClick={() => {
-																dispatch(deleteLink(link.id, chat._id))
+																dispatch(deleteLinkAction(link.id, chat._id))
 															}} />
 														</div>
 
@@ -327,28 +313,23 @@ const MoreCreator = ({ navigate, user, users, chat, moreInfo, editAvatar, setEdi
 												{<img className='user__avatar' src={user.avatar ? `${path + user.avatar}` : avatarLogo} alt="" />}
 												{user.username}
 											</li>
-
 										)
 									)}
 								</ul>
 							</div>
 						</div>
 						<div className="more__column more__column-right">
-
-
-
 							<div className="more__edit" key={'edit' + user._id}>
 								<img className="more__edit-gear" src={gear} alt="" />
 								<div className="more__delete-room" key={'delete' + user._id} onClick={async (e) => {
 									e.stopPropagation();
-									await dispatch(deleteroom(chat._id, user._id));
+									await dispatch(deleteRoomAction(chat._id, user._id));
 									navigate('/chats/');
-									dispatch(loadrooms())
+									dispatch(loadRoomsAction())
 								}}>
 									delete room
 								</div>
 							</div>
-
 							<div className="more__users-info">
 								<div className="more__users-number users-number">
 									<div className="users-number__text">
@@ -408,9 +389,9 @@ const MoreCreator = ({ navigate, user, users, chat, moreInfo, editAvatar, setEdi
 								</ul>
 							</div>
 							<div className='more__leave' onClick={async () => {
-								leavetheroom(chat._id, user._id);
+								dispatch(leaveRoomAction(chat._id, user._id));
 								navigate('/chats/');
-								dispatch(loadrooms())
+								dispatch(loadRoomsAction())
 							}}><span>Leave room</span></div>
 						</div>
 					</div>

@@ -1,10 +1,11 @@
-import { addRoom, gotoRoom, loadRooms } from '../reducers/roomReducer'
-import { getUserReducer, setUser } from '../reducers/userReducer'
+import { loadMessagesReducer } from '../reducers/messageReducer'
+import { addRoomReducer, gotoRoomReducer, loadRoomsReducer } from '../reducers/roomReducer'
+import { getUserReducer, setUserReducer } from '../reducers/userReducer'
 
 const axios = require('axios')
 const api = require('../path/api_url')
 const path = api.API_URL
-export const createroom = (roomname, headers) => {
+export const createRoomAction = (roomname, headers) => {
 	return async dispatch => {
 		try {
 			const response = await axios.post(`${path}api/room/create-room`,
@@ -13,14 +14,13 @@ export const createroom = (roomname, headers) => {
 					headers
 				}
 			)
-			dispatch(addRoom(response.data.room))
-			return
+			return dispatch(addRoomReducer(response.data.room))
 		} catch (e) {
 			console.log(e)
 		}
 	}
 }
-export const deleteroom = (roomid, userid) => {
+export const deleteRoomAction = (roomid, userid) => {
 	return async dispatch => {
 		try {
 			const response = await axios.post(`${path}api/room/delete-room`,
@@ -29,14 +29,13 @@ export const deleteroom = (roomid, userid) => {
 					userid
 				}
 			)
-			dispatch(loadRooms(response.data.rooms))
-			return
+			return dispatch(loadRoomsReducer(response.data.rooms))
 		} catch (e) {
 			console.log(e)
 		}
 	}
 }
-export const leavetheroom = async (roomid, userid) => {
+export const leaveRoomAction = async (roomid, userid) => {
 	try {
 		const response = await axios.post(`${path}api/room/leave-room`,
 			{
@@ -51,72 +50,61 @@ export const leavetheroom = async (roomid, userid) => {
 
 }
 
-export const loadrooms = () => {
+export const loadRoomsAction = () => {
 	return async dispatch => {
 		try {
 			const response = await axios.get(`${path}api/room/load-rooms`,
 				{ headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
 			)
-			dispatch(loadRooms(response.data.rooms))
-			return
+			return dispatch(loadRoomsReducer(response.data.rooms))
 		} catch (e) {
 			console.log(e)
 		}
 	}
 }
-export const searchrooms = (name) => {
+export const searchRoomsAction = (roomname) => {
 	return async dispatch => {
 		try {
 			const response = await axios.post(`${path}api/room/search-rooms`, {
-				name
+				roomname
 			})
-			dispatch(loadRooms(response.data.rooms))
-			return
+			return dispatch(loadRoomsReducer(response.data.rooms))
 		} catch (e) {
 			console.log(e)
 		}
 	}
 }
-export const connectToRoom = (userid, roomid) => {
+export const connectToRoomAction = (userid, roomid) => {
 	return async dispatch => {
 		try {
 			const response = await axios.post(`${path}api/room/connect-to-room`, {
 				userid,
 				roomid
 			})
-			/*dispatch(gotoRoom(response.data))*/
 			return
 		} catch (e) {
 			console.log(e)
 		}
 	}
 }
-export const getConnectToRoom = () => {
+export const getConnectToRoomAction = () => {
 	return async dispatch => {
 		try {
 			const response = await axios.get(`${path}api/room/get-connect-to-room`)
-			dispatch(gotoRoom(response.data))
-			return
+			return dispatch(gotoRoomReducer(response.data))
 		} catch (e) {
 			console.log(e)
 		}
 	}
 }
 
-export const entrenceroom = async () => {
-	try {
-	} catch (e) {
-		console.log(e)
-	}
-}
-export const getRoomUser = (userid) => {
+export const getRoomUserAction = (userid) => {
 	return async dispatch => {
 		try {
 			const response = await axios.post(`${path}api/room/get-room-user`, {
 				userid
 			})
-			dispatch(setUser(response.data))
-			return
+			return dispatch(setUserReducer(response.data))
 		} catch (e) {
 			console.log(e)
 		}
@@ -124,105 +112,105 @@ export const getRoomUser = (userid) => {
 }
 
 
-export const getRoomUsers = async (usersid) => {
+export const getRoomUsersAction = async (usersid) => {
 	try {
 		const response = await axios.post(`${path}api/room/get-room-users`, {
 			usersid
 		})
-		return console.log(response)
+		return
 	} catch (e) {
 		console.log(e)
 	}
 }
-export const uploadRoomAvatar = (file, roomid) => {
+export const uploadRoomAvatarAction = (file, roomid) => {
 	return async dispatch => {
 		try {
 			const formData = new FormData()
 			formData.append('file', file)
 			formData.append('data', roomid)
 			const response = await axios.post(`${path}api/room/upload-avatar`, formData)
-			await dispatch(gotoRoom(response.data.room))
+			return await dispatch(gotoRoomReducer(response.data.room))
 		} catch (e) {
 			console.log(e.response.message)
 		}
 	}
 }
-export const deleteRoomAvatar = (roomid) => {
+export const deleteRoomAvatarAction = (roomid) => {
 	return async dispatch => {
 		try {
 			const response = await axios.post(`${path}api/room/delete-avatar`, {
 				roomid
 			})
-			await dispatch(gotoRoom(response.data.room))
+			return await dispatch(gotoRoomReducer(response.data.room))
 		} catch (e) {
 			console.log(e.response.message)
 		}
 	}
 }
-export const editChatName = (roomid, roomname) => {
+export const editChatNameAction = (roomid, roomname) => {
 	return async dispatch => {
 		try {
 			const response = await axios.post(`${path}api/room/edit-name`, {
 				roomid,
 				roomname
 			})
-			await dispatch(gotoRoom(response.data.room))
+			return await dispatch(gotoRoomReducer(response.data.room))
 		} catch (e) {
 			console.log(e.response.message)
 		}
 	}
 }
-export const editChatDescription = (roomid, roomdescription) => {
+export const editChatDescriptionAction = (roomid, roomdescription) => {
 	return async dispatch => {
 		try {
 			const response = await axios.post(`${path}api/room/edit-description`, {
 				roomid,
 				roomdescription
 			})
-			await dispatch(gotoRoom(response.data.room))
+			return await dispatch(gotoRoomReducer(response.data.room))
 		} catch (e) {
 			console.log(e.response.message)
 		}
 	}
 }
 
-export const createLink = (linkname, linklink, roomid) => {
+export const createLinkAction = (linkname, link, roomid) => {
 	return async dispatch => {
 		try {
 			const response = await axios.post(`${path}api/room/create-link`, {
 				linkname,
-				linklink,
+				link,
 				roomid,
 			})
-			await dispatch(gotoRoom(response.data.room))
+			return await dispatch(gotoRoomReducer(response.data.room))
 		} catch (e) {
 			console.log(e.response.message)
 		}
 	}
 }
-export const deleteLink = (linkid, roomid) => {
+export const deleteLinkAction = (linkid, roomid) => {
 	return async dispatch => {
 		try {
 			const response = await axios.post(`${path}api/room/delete-link`, {
 				linkid,
 				roomid
 			})
-			await dispatch(gotoRoom(response.data.room))
+			return await dispatch(gotoRoomReducer(response.data.room))
 		} catch (e) {
 			console.log(e.response.message)
 		}
 	}
 }
-export const editLink = (linkname, linklink, roomid, linkid) => {
+export const editLinkAction = (linkname, link, roomid, linkid) => {
 	return async dispatch => {
 		try {
 			const response = await axios.post(`${path}api/room/edit-link`, {
 				linkname,
-				linklink,
+				link,
 				roomid,
 				linkid
 			})
-			await dispatch(gotoRoom(response.data.room))
+			return await dispatch(gotoRoomReducer(response.data.room))
 		} catch (e) {
 			console.log(e.response.message)
 		}

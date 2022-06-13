@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
-import { logout, setUser } from '../../../reducers/userReducer'
+import { logoutReducer } from '../../../reducers/userReducer'
 import MyButton from '../MyButton/MyButton'
 import classes from './Navbar.module.css'
 import avatarLogo from '../../../img/avatar/default-avatar.jpg'
@@ -59,7 +59,7 @@ const Navbar = ({ username }) => {
 						<div className={classes.navbarUsername}>{username}</ div >
 					</div>
 					<div className={navbarLinks.join(' ')}>
-						<div className={navbarLink.join(' ')} onClick={() => dispatch(logout())}>Logout</ div >
+						<div className={navbarLink.join(' ')} onClick={() => dispatch(logoutReducer())}>Logout</ div >
 					</div>
 					<div className={navbarBurger.join(' ')} onClick={() => setIsActive(!isActive)}>
 						<span className={spanActive.join(' ')}></span>

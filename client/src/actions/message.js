@@ -1,45 +1,72 @@
-import { addMessage, loadMessages, setTotal, uploadingMessages } from '../reducers/messageReducer'
+import { addMessageReducer, getReplyMessageReducer, getReplyMessagesReducer, loadMessagesReducer, setTotalReducer, updateMessagesReducer, uploadingMessagesReducer } from '../reducers/messageReducer'
 import { gotoRoom } from '../reducers/roomReducer'
 const axios = require('axios')
 const api = require('../path/api_url')
 const path = api.API_URL
-export const sendMessage = (message, userid, roomid) => {
+
+export const getReplyMessagesAction = (messagesid) => {
 	return async dispatch => {
 		try {
-			const response = await axios.post(`${path}api/message/send-message`, {
-				message,
-				userid,
-				roomid
+			const response = await axios.post(`${path}api/message/get-reply-messages`, {
+				messagesid
 			})
-			return
+			return await dispatch(getReplyMessagesReducer(response.data.messages))
 		} catch (e) {
 			console.log(e)
 		}
 	}
 }
-export const getMessage = () => {
-	return async dispatch => {
-		try {
-			const response = await axios.get(`${path}api/message/get-message`)
-			await dispatch(addMessage(response.data.message))
-			return
-		} catch (e) {
-			console.log(e)
-		}
-	}
-}
-export const loadmessages = (roomid, lastmessid) => {
+export const loadMessagesAction = (roomid, lastmessid) => {
 	return async dispatch => {
 		try {
 			const response = await axios.post(`${path}api/message/load-messages`, {
 				roomid,
 				lastmessid
 			})
-			await dispatch(loadMessages(response.data.messages))
-			await dispatch(setTotal(response.data.total))
-			return
+			await dispatch(loadMessagesReducer(response.data.messages))
+			return await dispatch(setTotalReducer(response.data.total))
 		} catch (e) {
 			console.log(e)
+		}
+	}
+}
+export const deleteMessageAction = (roomid, messageid) => {
+	return async dispatch => {
+		try {
+			const response = await axios.post(`${path}api/room/delete-message`, {
+				roomid,
+				messageid
+			})
+			return
+		} catch (e) {
+			console.log(e.response.message)
+		}
+	}
+}
+export const updateMessagesAction = (roomid, lastmessid) => {
+	return async dispatch => {
+		try {
+			const response = await axios.post(`${path}api/message/load-messages`, {
+				roomid,
+				lastmessid
+			})
+			return await dispatch(updateMessagesReducer(response.data.messages))
+		} catch (e) {
+			console.log(e.response.message)
+		}
+	}
+}
+export const editMessageAction = (roomid, messageid, message) => {
+	return async dispatch => {
+		try {
+			const response = await axios.post(`${path}api/message/edit-message`, {
+				roomid,
+				messageid,
+				message
+			})
+			return
+		} catch (e) {
+			console.log(e.response.message)
 		}
 	}
 }

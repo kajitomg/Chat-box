@@ -1,12 +1,17 @@
 import React, { useState } from 'react'
-import avatarLogo from '../../img/avatar/default-avatar.jpg'
-import creatorCrown from '../../img/icons/creator-crown.png'
-import administratorStar from '../../img/icons/administrator-star.png'
-import { leavetheroom, loadrooms } from '../../actions/room'
-import { useDispatch } from 'react-redux'
+import avatarLogo from '../../../img/avatar/default-avatar.jpg'
+import creatorCrown from '../../../img/icons/creator-crown.png'
+import administratorStar from '../../../img/icons/administrator-star.png'
+import { leaveRoomAction, loadRoomsAction } from '../../../actions/room'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
-const MoreUser = ({ navigate, user, users, chat }) => {
-	const api = require('../../path/api_url')
+const MoreUser = () => {
+	const navigate = useNavigate()
+	const chat = useSelector(state => state.room.room)
+	const user = useSelector(state => state.user.currentUser)
+	const users = useSelector(state => state.user.users)
+	const api = require('../../../path/api_url')
 	const path = api.API_URL
 	const avatarURL = chat.avatar ? `${path + chat.avatar}` : avatarLogo
 	const moreUsers = ['more__users-btn']
@@ -77,7 +82,7 @@ const MoreUser = ({ navigate, user, users, chat }) => {
 												<div className='link__name-wrapper'>
 
 													<div className="links__link-name">{link.linkname}</div>
-													<a href={link.link} className="links__link-link" >{link.link}</a>
+													<a href={`http://${link.link}`} className="links__link-link" >http://{link.link}</a>
 												</div>
 											</li>
 										)}
@@ -203,9 +208,9 @@ const MoreUser = ({ navigate, user, users, chat }) => {
 								</ul>
 							</div>
 							<div className='more__leave' onClick={async () => {
-								leavetheroom(chat._id, user._id);
+								dispatch(leaveRoomAction(chat._id, user._id));
 								navigate('/chats/');
-								dispatch(loadrooms())
+								dispatch(loadRoomsAction())
 							}}><span>Leave room</span></div>
 						</div>
 					</div>

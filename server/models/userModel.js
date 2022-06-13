@@ -1,13 +1,13 @@
 const { Schema, model, ObjectId } = require('mongoose')
 
 
-const User = new Schema({
+const userModel = new Schema({
 	username: { type: String, required: true, unique: true },
 	password: { type: String, required: true },
 	avatar: { type: String },
 	info: { type: Object },
 	socketid: { type: String },
-	rooms: [{ type: ObjectId, ref: 'Chat-room' }],
+	rooms: [{ type: ObjectId, ref: 'chatRoomModel' }],
 })
 
-module.exports = model('User', User)
+module.exports = model('users', userModel)

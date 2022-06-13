@@ -4,14 +4,14 @@ import React, { useEffect, useState } from "react";
 import Background from "./components/Background";
 import Login from './pages/Login';
 import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
-import Chat from './pages/Chat';
+import Chat from './pages/Chat/Chat';
 import Registration from './pages/Registration';
 import Navbar from './components/UI/Navbar/Navbar';
 import Chats from './pages/Chats';
 import { useDispatch, useSelector } from 'react-redux';
-import { auth } from './actions/user';
+import { authAction } from './actions/user';
 import Loader from './components/UI/Loader/Loader';
-import Account from './pages/Account';
+import Account from './pages/Account/Account';
 import socket from './socket';
 //import io, { Socket } from 'socket.io-client'
 function App() {
@@ -21,7 +21,7 @@ function App() {
 	const user = useSelector(state => state.user.currentUser)
 	useEffect(async () => {
 		setIsContentLoader(true)
-		await dispatch(auth())
+		await dispatch(authAction())
 		setIsContentLoader(false)
 	}, [])
 	useEffect(() => {

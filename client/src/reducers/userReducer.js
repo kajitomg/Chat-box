@@ -40,7 +40,7 @@ export default function userReducer(state = defaultState, action) {
 	}
 }
 
-export const setUser = user => ({ type: SET_USER, payload: user })
-export const setUsers = users => ({ type: SET_USERS, payload: users })
-export const setCurrentUser = user => ({ type: SET_CURRENT_USER, payload: user })
-export const logout = () => ({ type: LOGOUT })
+export const setUserReducer = user => ({ type: SET_USER, payload: user })
+export const setUsersReducer = users => ({ type: SET_USERS, payload: users })
+export const setCurrentUserReducer = user => ({ type: SET_CURRENT_USER, payload: user })
+export const logoutReducer = () => ({ type: LOGOUT })

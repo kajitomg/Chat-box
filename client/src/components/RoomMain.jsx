@@ -43,21 +43,6 @@ const RoomMain = ({ ref, isMessagesLoading, fetchMessages, chatID, chat, user, u
 	return (
 
 		<div className='chat__case'>
-			{/* <div className={chatMore.join(' ')}>
-					<div className='more__button-close' onClick={() => setMoreInfo(!moreInfo)}>
-						<span></span>
-						<span></span>
-					</div>
-					<div className="more__info">
-						<div className="more__room-avatar">
-
-						</div>
-						<div className="more__roomname">
-							{chat.roomname}
-						</div>
-					</div>
-					<div className='more__leave' onClick={async () => { leavetheroom(chat._id, user._id); navigate('/chats/'); dispatch(loadrooms()) }}>Leave room</div>
-				</div> */}
 			<div className='chat__message-place'>
 				<div className="chat__header">
 					<div className='chat__button-more chat__button-more-message-place' onClick={() => setMoreInfo(!moreInfo)}>

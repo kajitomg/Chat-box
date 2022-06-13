@@ -35,7 +35,7 @@ export default function roomReducer(state = defaultState, action) {
 	}
 }
 
-export const addRoom = room => ({ type: ADD_ROOM, payload: room })
-export const loadRooms = rooms => ({ type: LOAD__ROOMS, payload: rooms })
-export const gotoRoom = room => ({ type: GOTO__ROOM, payload: room })
-export const clearRoom = () => ({ type: CLEAR__ROOM })
+export const addRoomReducer = room => ({ type: ADD_ROOM, payload: room })
+export const loadRoomsReducer = rooms => ({ type: LOAD__ROOMS, payload: rooms })
+export const gotoRoomReducer = room => ({ type: GOTO__ROOM, payload: room })
+export const clearRoomReducer = () => ({ type: CLEAR__ROOM })

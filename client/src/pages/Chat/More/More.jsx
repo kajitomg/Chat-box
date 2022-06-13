@@ -1,21 +1,15 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { leavetheroom, loadrooms } from '../actions/room'
-import '../styles/More.css'
-import MoreCreator from './More/MoreCreator'
-import MoreUser from './More/MoreUser'
+import '../../../styles/Chat/More/More.css'
+import MoreCreator from './MoreCreator'
+import MoreUser from './MoreUser'
 
-const More = ({ chat, user, users, setMoreInfo, moreInfo }) => {
-	const dispatch = useDispatch()
-	const navigate = useNavigate()
+const More = ({ chat, setMoreInfo, moreInfo }) => {
 	const chatMore = ['chat__more', 'more']
 	const [editAvatar, setEditAvatar] = useState(false)
 	if (moreInfo) {
 		chatMore.push('active')
-	}
-	if (!moreInfo) {
-		chatMore.slice(-1, 1)
 	}
 
 	return (
@@ -26,8 +20,16 @@ const More = ({ chat, user, users, setMoreInfo, moreInfo }) => {
 			</div>
 			{chat._id !== undefined &&
 				<div className='more__wrapper'>
-					<MoreCreator navigate={navigate} user={user} users={users} chat={chat} moreInfo={moreInfo} editAvatar={editAvatar} setEditAvatar={setEditAvatar} />
-					<MoreUser navigate={navigate} user={user} users={users} chat={chat} />
+					{moreInfo
+						?
+						<MoreCreator
+							editAvatar={editAvatar}
+							setEditAvatar={setEditAvatar}
+						/>
+						:
+						<MoreUser
+						/>
+					}
 				</div>
 			}
 		</div >
