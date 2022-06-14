@@ -18,10 +18,8 @@ router.post('/create-room', authPostMiddleware,
 			const user = await userModel.findOne({ _id: req.user.id })
 			const createRoom = new chatRoomModel({ users: [user], usernames: [user.username], roomname, roomname_lower: roomname.toLowerCase(), messages: [], role: [{ userid: user._id, role: 'Creator' }] })
 			await createRoom.save()
-			user.rooms.push(createRoom)
-			await userModel.findOneAndUpdate({ _id: user._id }, { rooms: user.rooms })
-			let resRoom = { id: createRoom._id, users: [user._id], usernames: [user.username], roomname: createRoom.roomname, role: createRoom.role }
-			return res.json({ room: resRoom })
+			await userModel.findOneAndUpdate({ _id: user._id }, { $push: { rooms: createRoom } })
+			return res.json({ room: createRoom })
 		} catch (e) {
 			return res.json({ message: 'Server error' })
 		}
@@ -31,12 +29,8 @@ router.get('/load-rooms', authMiddleware,
 	async (req, res) => {
 		try {
 			const user = await userModel.findOne({ _id: req.user.id })
-			let roomsBody = await chatRoomModel.find({ _id: { $in: user.rooms } })
-			let resRooms = []
-			roomsBody.forEach((room, id) => {
-				resRooms = [...resRooms, { id: room._id, users: room.users, usernames: room.usernames, roomname: room.roomname, avatar: room.avatar }]
-			})
-			return await res.json({ rooms: resRooms })
+			let rooms = await chatRoomModel.find({ _id: { $in: user.rooms } }, { messages: 0, role: 0, links: 0, description: 0 })
+			return await res.json({ rooms: rooms })
 		} catch (e) {
 			res.send({ message: 'Server error' })
 		}
@@ -49,12 +43,8 @@ router.post('/delete-room',
 			await userModel.updateMany({ rooms: roomid }, { $pull: { rooms: roomid } })
 			await chatRoomModel.deleteOne({ _id: roomid })
 			const user = await userModel.findOne({ _id: userid })
-			const roomsBody = await chatRoomModel.find({ _id: { $in: user.rooms } })
-			let resRooms = []
-			roomsBody.forEach((room) => {
-				resRooms = [...resRooms, { id: room._id, users: room.users, usernames: room.usernames, roomname: room.roomname, }]
-			})
-			return await res.json({ rooms: resRooms })
+			const rooms = await chatRoomModel.find({ _id: { $in: user.rooms } }, { messages: 0, role: 0, links: 0, description: 0 })
+			return await res.json({ rooms: rooms })
 		} catch (e) {
 			return res.send({ message: 'Server error' })
 		}
@@ -77,12 +67,8 @@ router.post('/search-rooms',
 	async (req, res) => {
 		try {
 			const { roomname } = req.body
-			const rooms = await chatRoomModel.find({ roomname_lower: roomname.toLowerCase() })
-			let resRooms = []
-			rooms.forEach((room, id) => {
-				resRooms = [...resRooms, { id: room._id, users: room.users, usernames: room.usernames, roomname: room.roomname, avatar: room.avatar }]
-			})
-			return res.status(200).json({ rooms: resRooms })
+			const rooms = await chatRoomModel.find({ roomname_lower: roomname.toLowerCase() }, { messages: 0, role: 0, links: 0, description: 0 })
+			return res.status(200).json({ rooms: rooms })
 		} catch (e) {
 			return res.send({ message: 'Server error' })
 		}
@@ -122,7 +108,7 @@ router.post('/upload-avatar',
 		try {
 			const roomid = req.body.data
 			const file = req.files.file
-			const room = await chatRoomModel.findOne({ _id: req.body.data })
+			const room = await chatRoomModel.findOne({ _id: roomid })
 			const avatarName = Uuid.v4() + '.jpg'
 			file.mv(req.filePath + "/" + avatarName)
 			room.avatar = avatarName

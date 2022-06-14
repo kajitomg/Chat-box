@@ -10,6 +10,7 @@ export const getReplyMessagesAction = (messagesid) => {
 			const response = await axios.post(`${path}api/message/get-reply-messages`, {
 				messagesid
 			})
+
 			return await dispatch(getReplyMessagesReducer(response.data.messages))
 		} catch (e) {
 			console.log(e)
@@ -23,8 +24,8 @@ export const loadMessagesAction = (roomid, lastmessid) => {
 				roomid,
 				lastmessid
 			})
-			await dispatch(loadMessagesReducer(response.data.messages))
-			return await dispatch(setTotalReducer(response.data.total))
+			await dispatch(setTotalReducer(response.data.total))
+			return await dispatch(loadMessagesReducer(response.data.messages))
 		} catch (e) {
 			console.log(e)
 		}

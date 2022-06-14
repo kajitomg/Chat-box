@@ -20,7 +20,7 @@ const Registration = () => {
 			<form className='registration__form'>
 				<MyInput value={username} onChange={(e) => setUsername(e.target.value)} className='registration__input' type="text" placeholder="Enter your nickname" />
 				<MyInput value={password} onChange={(e) => setPassword(e.target.value)} className='registration__input' type="password" placeholder="Enter your password" />
-				<MyButton to='/Chat' className='registration__button' onClick={(e) => registrationfn(e)}>Registration</MyButton>
+				<MyButton to='/Chat' className='registration__button' onClick={registrationfn}>Registration</MyButton>
 			</form>
 		</section>
 	)

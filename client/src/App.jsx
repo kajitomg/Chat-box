@@ -4,10 +4,10 @@ import React, { useEffect, useState } from "react";
 import Background from "./components/Background";
 import Login from './pages/Login';
 import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
-import Chat from './pages/Chat/Chat';
+import Room from './pages/Room/Room';
 import Registration from './pages/Registration';
 import Navbar from './components/UI/Navbar/Navbar';
-import Chats from './pages/Chats';
+import Rooms from './pages/Rooms';
 import { useDispatch, useSelector } from 'react-redux';
 import { authAction } from './actions/user';
 import Loader from './components/UI/Loader/Loader';
@@ -52,10 +52,10 @@ function App() {
 									: isAuth
 										?
 										<Routes>
-											<Route path='/Chats' element={<Chats />} />
-											<Route path='/Chat/:id' element={<Chat />} />
+											<Route path='/Rooms' element={<Rooms />} />
+											<Route path='/Room/:id' element={<Room />} />
 											<Route path='/Account/:id' element={<Account />} />
-											<Route path='*' element={<Chats />} />
+											<Route path='*' element={<Rooms />} />
 										</Routes>
 										:
 										<Routes>

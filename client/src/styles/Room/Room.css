@@ -1,0 +1,5 @@
+.room {
+	margin: 60px 0 0 0;
+	padding: 10px 0 0 0;
+	height: calc(100% - 10px);
+}

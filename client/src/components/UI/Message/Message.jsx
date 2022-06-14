@@ -1,17 +1,18 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import cl from './Message.module.css'
-import avatarLogo from '../../../img/avatar/default-avatar.jpg'
-import { useDispatch, useSelector } from 'react-redux'
-import { getUserAction } from '../../../actions/user'
-import { useNavigate } from 'react-router-dom'
-import { deleteMessageAction } from '../../../actions/room'
-import { getReplyMessageAction, loadMessagesAction, updateMessagesAction } from '../../../actions/message'
-import socket from '../../../socket'
+import { useSelector } from 'react-redux'
+import MessageNameCurrentReplyLayout from './Messages/MessageNameCurrentReplyLayout'
+import MessageNameCurrentLayout from './Messages/MessageNameCurrentLayout'
+import MessageNameReplyLayout from './Messages/MessageNameReplyLayout'
+import MessageCurrentReplyLayout from './Messages/MessageCurrentReplyLayout'
+import MessageCurrentLayout from './Messages/MessageCurrentLayout'
+import MessageReplyLayout from './Messages/MessageReplyLayout'
+import MessageLayout from './Messages/MessageLayout'
+import MessageNameLayout from './Messages/MessageNameLayout'
 
 const Message = ({ roomid, name, setEditMessage, setReplyMessage, message, user, current, selectedMessage, setSelectedMessage }) => {
-	const dispatch = useDispatch()
-	const navigate = useNavigate()
 	const replyMessages = useSelector(state => state.message.replyMessages)
+
 	const messageBody = [cl.messageBody]
 	const messageText = [cl.messageText]
 	const messageName = [cl.messageName]
@@ -26,14 +27,7 @@ const Message = ({ roomid, name, setEditMessage, setReplyMessage, message, user,
 	const messageDelete = [cl.messageDelete, cl.messageEditButton]
 	const messageEdit = [cl.messageEdit, cl.messageEditButton]
 	const messageInteraction = [cl.messageInteraction]
-	const api = require('../../../path/api_url')
-	const path = api.API_URL
-	const avatarURL = user !== undefined ? user.avatar ? `${path + user.avatar}` : avatarLogo : avatarLogo
-	useEffect(async () => {
-		socket.on('delete-message', async (data) => {
-			await dispatch(updateMessagesAction(roomid))
-		})
-	}, [])
+
 	if (current) {
 		messageBody.push(cl.currentUser)
 		messageText.push(cl.currentUser)
@@ -64,12 +58,9 @@ const Message = ({ roomid, name, setEditMessage, setReplyMessage, message, user,
 		messageContent.push(cl.selected)
 		messageInteraction.push(cl.selected)
 	}
-	const deleteRoom = async () => {
-		await socket.emit('delete-message', { roomid: roomid, messageid: selectedMessage })
-		await setSelectedMessage('');
-	}
+
 	return (
-		<div className={cl.messageWrapper}>
+		<div className={cl.messageWrapper} id={message._id}>
 			{name
 				?
 				current
@@ -78,163 +69,60 @@ const Message = ({ roomid, name, setEditMessage, setReplyMessage, message, user,
 						?
 						replyMessages.map(replyMess =>
 							replyMess._id === message.inheritance
-								? <li className={messageBody.join(' ')} onClick={() => setSelectedMessage(message._id)} key={'reply' + replyMess._id}>
-									<span className={messageText.join(' ')}>
-										<span className={messageContent.join(' ')} >
-											<span className={messageName.join(' ')}>{message.username}</span>
-											<span className={messageReplyContent.join(' ')}>
-												<span className={messageName.join(' ')}>{replyMess.username}</span>
-												<span className={messageMessage.join(' ')}>{replyMess.mess}</span>
-												<span className={messageTime.join(' ')}>{replyMess.time}</span>
-											</span>
-											<span className={messageMessage.join(' ')}>{message.mess}</span>
-											<span className={messageTime.join(' ')}>{message.time}</span>
-										</span>
-										<span className={messageAvatar.join(' ')}><img src={avatarURL} alt="" /></span>
-									</span>
-									<span className={messageTextPopup.join(' ')}>
-										<span className={messageContentPopup.join(' ')} >
-											<span className={messageName.join(' ')} onClick={() =>
-												navigate(`/Account/${user._id}`)
-											}>{message.username}</span>
-											<span className={messageReplyContent.join(' ')}>
-												<span className={messageName.join(' ')}>{replyMess.username}</span>
-												<span className={messageMessage.join(' ')}>{replyMess.mess}</span>
-												<span className={messageTime.join(' ')}>{replyMess.time}</span>
-											</span>
-											<span className={messageMessage.join(' ')}>{message.mess}</span>
-											<span className={messageTime.join(' ')}>{message.time}</span>
-										</span>
-										<span className={messageAvatar.join(' ')} onClick={() =>
-											navigate(`/Account/${user._id}`)
-										}><img src={avatarURL} alt="" /></span>
-									</span>
-									<span className={messageInteraction.join(' ')}>
-										<span className={messageDelete.join(' ')} onClick={deleteRoom}>Delete</span>
-										<span className={messageEdit.join(' ')} onClick={() => {
-											setEditMessage(message.mess)
-										}}>Edit</span>
-										<span className={messageReply.join(' ')} onClick={async () => {
-											await setReplyMessage(selectedMessage);
-											await setEditMessage('')
-											await setSelectedMessage('');
-										}}>Reply</span>
-									</span>
-								</li>
+								?
+								<MessageNameCurrentReplyLayout key={message._id}
+									messageBody={messageBody} messageText={messageText} messageName={messageName}
+									messageTime={messageTime} messageMessage={messageMessage} messageTextPopup={messageTextPopup}
+									messageContentPopup={messageContentPopup} messageAvatar={messageAvatar} messageReplyContent={messageReplyContent}
+									messageContent={messageContent} messageReply={messageReply} messageDelete={messageDelete}
+									messageEdit={messageEdit} messageInteraction={messageInteraction} setEditMessage={setEditMessage}
+									setReplyMessage={setReplyMessage} message={message} user={user}
+									selectedMessage={selectedMessage} setSelectedMessage={setSelectedMessage} replyMess={replyMess}
+									roomid={roomid}
+								/>
 								: ''
 
 						)
 						:
-						<li className={messageBody.join(' ')} onClick={() => setSelectedMessage(message._id)} >
-							<span className={messageText.join(' ')}>
-								<span className={messageContent.join(' ')} >
-									<span className={messageName.join(' ')}>{message.username}</span>
-									<span className={messageMessage.join(' ')}>{message.mess}</span>
-									<span className={messageTime.join(' ')}>{message.time}</span>
-								</span>
-								<span className={messageAvatar.join(' ')}><img src={avatarURL} alt="" /></span>
-							</span>
-							<span className={messageTextPopup.join(' ')}>
-								<span className={messageContentPopup.join(' ')} >
-									<span className={messageName.join(' ')} onClick={() =>
-										navigate(`/Account/${user._id}`)
-									}>{message.username}</span>
-									<span className={messageMessage.join(' ')}>{message.mess}</span>
-									<span className={messageTime.join(' ')}>{message.time}</span>
-								</span>
-								<span className={messageAvatar.join(' ')} onClick={() =>
-									navigate(`/Account/${user._id}`)
-								}><img src={avatarURL} alt="" /></span>
-							</span>
-							<span className={messageInteraction.join(' ')}>
-								<span className={messageDelete.join(' ')} onClick={deleteRoom}>Delete</span>
-								<span className={messageEdit.join(' ')} onClick={() => {
-									setEditMessage(message.mess)
-								}}>Edit</span>
-								<span className={messageReply.join(' ')} onClick={async () => {
-									await setReplyMessage(selectedMessage);
-									await setEditMessage('')
-									await setSelectedMessage('');
-								}}>Reply</span>
-							</span>
-						</li>
+						<MessageNameCurrentLayout
+							messageBody={messageBody} messageText={messageText} messageName={messageName}
+							messageTime={messageTime} messageMessage={messageMessage} messageTextPopup={messageTextPopup}
+							messageContentPopup={messageContentPopup} messageAvatar={messageAvatar} messageReplyContent={messageReplyContent}
+							messageContent={messageContent} messageReply={messageReply} messageDelete={messageDelete}
+							messageEdit={messageEdit} messageInteraction={messageInteraction} setEditMessage={setEditMessage}
+							setReplyMessage={setReplyMessage} message={message} user={user}
+							selectedMessage={selectedMessage} setSelectedMessage={setSelectedMessage}
+							roomid={roomid}
+						/>
 					:
 					message.inheritance
 						?
 						replyMessages.map(replyMess =>
 							replyMess._id === message.inheritance
 								?
-								<li className={messageBody.join(' ')} onClick={() => setSelectedMessage(message._id)} key={'reply' + replyMess._id}>
-									<span className={messageText.join(' ')}>
-										<span className={messageAvatar.join(' ')}><img src={avatarURL} alt="" /></span>
-										<span className={messageContent.join(' ')} >
-											<span className={messageName.join(' ')}>{message.username}</span>
-											<span className={messageReplyContent.join(' ')}>
-												<span className={messageName.join(' ')}>{replyMess.username}</span>
-												<span className={messageMessage.join(' ')}>{replyMess.mess}</span>
-												<span className={messageTime.join(' ')}>{replyMess.time}</span>
-											</span>
-											<span className={messageMessage.join(' ')}>{message.mess}</span>
-											<span className={messageTime.join(' ')}>{message.time}</span>
-										</span>
-									</span>
-									<span className={messageTextPopup.join(' ')}>
-										<span className={messageAvatar.join(' ')} onClick={() =>
-											navigate(`/Account/${user._id}`)
-										}><img src={avatarURL} alt="" /></span>
-										<span className={messageContentPopup.join(' ')} >
-											<span className={messageName.join(' ')} onClick={() =>
-												navigate(`/Account/${user._id}`)
-											}>{message.username}</span>
-											<span className={messageReplyContent.join(' ')}>
-												<span className={messageName.join(' ')}>{replyMess.username}</span>
-												<span className={messageMessage.join(' ')}>{replyMess.mess}</span>
-												<span className={messageTime.join(' ')}>{replyMess.time}</span>
-											</span>
-											<span className={messageMessage.join(' ')}>{message.mess}</span>
-											<span className={messageTime.join(' ')}>{message.time}</span>
-										</span>
-									</span>
-									<span className={messageInteraction.join(' ')}>
-										<span className={messageReply.join(' ')} onClick={async () => {
-											await setReplyMessage(selectedMessage);
-											await setEditMessage('')
-											await setSelectedMessage('');
-										}}>Reply</span>
-									</span>
-								</li>
+								<MessageNameReplyLayout key={message._id}
+									messageBody={messageBody} messageText={messageText} messageName={messageName}
+									messageTime={messageTime} messageMessage={messageMessage} messageTextPopup={messageTextPopup}
+									messageContentPopup={messageContentPopup} messageAvatar={messageAvatar} messageReplyContent={messageReplyContent}
+									messageContent={messageContent} messageReply={messageReply} messageDelete={messageDelete}
+									messageEdit={messageEdit} messageInteraction={messageInteraction} setEditMessage={setEditMessage}
+									setReplyMessage={setReplyMessage} message={message} user={user}
+									selectedMessage={selectedMessage} setSelectedMessage={setSelectedMessage} replyMess={replyMess}
+									roomid={roomid}
+								/>
 								: ''
 						)
 						:
-						<li className={messageBody.join(' ')} onClick={() => setSelectedMessage(message._id)}>
-							<span className={messageText.join(' ')}>
-								<span className={messageAvatar.join(' ')}><img src={avatarURL} alt="" /></span>
-								<span className={messageContent.join(' ')} >
-									<span className={messageName.join(' ')}>{message.username}</span>
-									<span className={messageMessage.join(' ')}>{message.mess}</span>
-									<span className={messageTime.join(' ')}>{message.time}</span>
-								</span>
-							</span>
-							<span className={messageTextPopup.join(' ')}>
-								<span className={messageAvatar.join(' ')} onClick={() =>
-									navigate(`/Account/${user._id}`)
-								}><img src={avatarURL} alt="" /></span>
-								<span className={messageContentPopup.join(' ')} >
-									<span className={messageName.join(' ')} onClick={() =>
-										navigate(`/Account/${user._id}`)
-									}>{message.username}</span>
-									<span className={messageMessage.join(' ')}>{message.mess}</span>
-									<span className={messageTime.join(' ')}>{message.time}</span>
-								</span>
-							</span>
-							<span className={messageInteraction.join(' ')}>
-								<span className={messageReply.join(' ')} onClick={async () => {
-									await setReplyMessage(selectedMessage);
-									await setEditMessage('')
-									await setSelectedMessage('');
-								}}>Reply</span>
-							</span>
-						</li>
+						<MessageNameLayout
+							messageBody={messageBody} messageText={messageText} messageName={messageName}
+							messageTime={messageTime} messageMessage={messageMessage} messageTextPopup={messageTextPopup}
+							messageContentPopup={messageContentPopup} messageAvatar={messageAvatar} messageReplyContent={messageReplyContent}
+							messageContent={messageContent} messageReply={messageReply} messageDelete={messageDelete}
+							messageEdit={messageEdit} messageInteraction={messageInteraction} setEditMessage={setEditMessage}
+							setReplyMessage={setReplyMessage} message={message} user={user}
+							selectedMessage={selectedMessage} setSelectedMessage={setSelectedMessage}
+							roomid={roomid}
+						/>
 				:
 				current
 					?
@@ -243,154 +131,58 @@ const Message = ({ roomid, name, setEditMessage, setReplyMessage, message, user,
 						replyMessages.map(replyMess =>
 							replyMess._id === message.inheritance
 								?
-								<li className={messageBody.join(' ')} onClick={() => setSelectedMessage(message._id)} key={'reply' + replyMess._id}>
-									<span className={messageText.join(' ')}>
-										<span className={messageContent.join(' ')} >
-											<span className={messageReplyContent.join(' ')}>
-												<span className={messageName.join(' ')}>{replyMess.username}</span>
-												<span className={messageMessage.join(' ')}>{replyMess.mess}</span>
-												<span className={messageTime.join(' ')}>{replyMess.time}</span>
-											</span>
-											<span className={messageMessage.join(' ')}>{message.mess}</span>
-											<span className={messageTime.join(' ')}>{message.time}</span>
-										</span>
-									</span>
-									<span className={messageTextPopup.join(' ')}>
-										<span className={messageContentPopup.join(' ')} >
-											<span className={messageName.join(' ')} onClick={() =>
-												navigate(`/Account/${user._id}`)
-											}>{message.username}</span>
-											<span className={messageReplyContent.join(' ')}>
-												<span className={messageName.join(' ')}>{replyMess.username}</span>
-												<span className={messageMessage.join(' ')}>{replyMess.mess}</span>
-												<span className={messageTime.join(' ')}>{replyMess.time}</span>
-											</span>
-											<span className={messageMessage.join(' ')}>{message.mess}</span>
-											<span className={messageTime.join(' ')}>{message.time}</span>
-										</span>
-										<span className={messageAvatar.join(' ')} onClick={() =>
-											navigate(`/Account/${user._id}`)
-										}><img src={avatarURL} alt="" /></span>
-									</span>
-									<span className={messageInteraction.join(' ')}>
-										<span className={messageDelete.join(' ')} onClick={deleteRoom}>Delete</span>
-										<span className={messageEdit.join(' ')} onClick={() => {
-											setEditMessage(message.mess)
-										}}>Edit</span>
-										<span className={messageReply.join(' ')} onClick={async () => {
-											await setReplyMessage(selectedMessage);
-											await setEditMessage('')
-											await setSelectedMessage('');
-										}}>Reply</span>
-									</span>
-								</li>
+								<MessageCurrentReplyLayout key={message._id}
+									messageBody={messageBody} messageText={messageText} messageName={messageName}
+									messageTime={messageTime} messageMessage={messageMessage} messageTextPopup={messageTextPopup}
+									messageContentPopup={messageContentPopup} messageAvatar={messageAvatar} messageReplyContent={messageReplyContent}
+									messageContent={messageContent} messageReply={messageReply} messageDelete={messageDelete}
+									messageEdit={messageEdit} messageInteraction={messageInteraction} setEditMessage={setEditMessage}
+									setReplyMessage={setReplyMessage} message={message} user={user}
+									selectedMessage={selectedMessage} setSelectedMessage={setSelectedMessage} replyMess={replyMess}
+									roomid={roomid}
+								/>
 								: ''
 						)
 						:
-						<li className={messageBody.join(' ')} onClick={() => setSelectedMessage(message._id)}>
-							<span className={messageText.join(' ')}>
-								<span className={messageContent.join(' ')} >
-									<span className={messageMessage.join(' ')}>{message.mess}</span>
-									<span className={messageTime.join(' ')}>{message.time}</span>
-								</span>
-							</span>
-							<span className={messageTextPopup.join(' ')}>
-								<span className={messageContentPopup.join(' ')} >
-									<span className={messageName.join(' ')} onClick={() =>
-										navigate(`/Account/${user._id}`)
-									}>{message.username}</span>
-									<span className={messageMessage.join(' ')}>{message.mess}</span>
-									<span className={messageTime.join(' ')}>{message.time}</span>
-								</span>
-								<span className={messageAvatar.join(' ')} onClick={() =>
-									navigate(`/Account/${user._id}`)
-								}><img src={avatarURL} alt="" /></span>
-							</span>
-							<span className={messageInteraction.join(' ')}>
-								<span className={messageDelete.join(' ')} onClick={deleteRoom}>Delete</span>
-								<span className={messageEdit.join(' ')} onClick={() => {
-									setEditMessage(message.mess)
-								}}>Edit</span>
-								<span className={messageReply.join(' ')} onClick={async () => {
-									await setReplyMessage(selectedMessage);
-									await setEditMessage('')
-									await setSelectedMessage('');
-								}}>Reply</span>
-							</span>
-						</li>
+						<MessageCurrentLayout
+							messageBody={messageBody} messageText={messageText} messageName={messageName}
+							messageTime={messageTime} messageMessage={messageMessage} messageTextPopup={messageTextPopup}
+							messageContentPopup={messageContentPopup} messageAvatar={messageAvatar} messageReplyContent={messageReplyContent}
+							messageContent={messageContent} messageReply={messageReply} messageDelete={messageDelete}
+							messageEdit={messageEdit} messageInteraction={messageInteraction} setEditMessage={setEditMessage}
+							setReplyMessage={setReplyMessage} message={message} user={user}
+							selectedMessage={selectedMessage} setSelectedMessage={setSelectedMessage}
+							roomid={roomid}
+						/>
 					:
 					message.inheritance
 						?
 						replyMessages.map(replyMess =>
 							replyMess._id === message.inheritance
 								?
-								<li className={messageBody.join(' ')} onClick={() => setSelectedMessage(message._id)} key={'reply' + replyMess._id}>
-									<span className={messageText.join(' ')}>
-										<span className={messageContent.join(' ')} >
-											<span className={messageReplyContent.join(' ')}>
-												<span className={messageName.join(' ')}>{replyMess.username}</span>
-												<span className={messageMessage.join(' ')}>{replyMess.mess}</span>
-												<span className={messageTime.join(' ')}>{replyMess.time}</span>
-											</span>
-											<span className={messageMessage.join(' ')}>{message.mess}</span>
-											<span className={messageTime.join(' ')}>{message.time}</span>
-										</span>
-									</span>
-									<span className={messageTextPopup.join(' ')}>
-										<span className={messageAvatar.join(' ')} onClick={() =>
-											navigate(`/Account/${user._id}`)
-										}><img src={avatarURL} alt="" /></span>
-										<span className={messageContentPopup.join(' ')} >
-											<span className={messageName.join(' ')} onClick={() =>
-												navigate(`/Account/${user._id}`)
-											}>{message.username}</span>
-											<span className={messageReplyContent.join(' ')}>
-												<span className={messageName.join(' ')}>{replyMess.username}</span>
-												<span className={messageMessage.join(' ')}>{replyMess.mess}</span>
-												<span className={messageTime.join(' ')}>{replyMess.time}</span>
-											</span>
-											<span className={messageMessage.join(' ')}>{message.mess}</span>
-											<span className={messageTime.join(' ')}>{message.time}</span>
-										</span>
-									</span>
-									<span className={messageInteraction.join(' ')}>
-										<span className={messageReply.join(' ')} onClick={async () => {
-											await setReplyMessage(selectedMessage);
-											await setEditMessage('')
-											await setSelectedMessage('');
-										}}>Reply</span>
-									</span>
-								</li>
+								<MessageReplyLayout key={message._id}
+									messageBody={messageBody} messageText={messageText} messageName={messageName}
+									messageTime={messageTime} messageMessage={messageMessage} messageTextPopup={messageTextPopup}
+									messageContentPopup={messageContentPopup} messageAvatar={messageAvatar} messageReplyContent={messageReplyContent}
+									messageContent={messageContent} messageReply={messageReply} messageDelete={messageDelete}
+									messageEdit={messageEdit} messageInteraction={messageInteraction} setEditMessage={setEditMessage}
+									setReplyMessage={setReplyMessage} message={message} user={user}
+									selectedMessage={selectedMessage} setSelectedMessage={setSelectedMessage} replyMess={replyMess}
+									roomid={roomid}
+								/>
 								: ''
 						)
 						:
-						<li className={messageBody.join(' ')} onClick={() => setSelectedMessage(message._id)}>
-							<span className={messageText.join(' ')}>
-								<span className={messageContent.join(' ')} >
-									<span className={messageMessage.join(' ')}>{message.mess}</span>
-									<span className={messageTime.join(' ')}>{message.time}</span>
-								</span>
-							</span>
-							<span className={messageTextPopup.join(' ')}>
-								<span className={messageAvatar.join(' ')} onClick={() =>
-									navigate(`/Account/${user._id}`)
-								}><img src={avatarURL} alt="" /></span>
-								<span className={messageContentPopup.join(' ')} >
-									<span className={messageName.join(' ')} onClick={() =>
-										navigate(`/Account/${user._id}`)
-									}>{message.username}</span>
-									<span className={messageMessage.join(' ')}>{message.mess}</span>
-									<span className={messageTime.join(' ')}>{message.time}</span>
-								</span>
-							</span>
-							<span className={messageInteraction.join(' ')}>
-								<span className={messageReply.join(' ')} onClick={async () => {
-									await setReplyMessage(selectedMessage);
-									await setEditMessage('')
-									await setSelectedMessage('');
-								}}>Reply</span>
-							</span>
-						</li>
+						<MessageLayout
+							messageBody={messageBody} messageText={messageText} messageName={messageName}
+							messageTime={messageTime} messageMessage={messageMessage} messageTextPopup={messageTextPopup}
+							messageContentPopup={messageContentPopup} messageAvatar={messageAvatar} messageReplyContent={messageReplyContent}
+							messageContent={messageContent} messageReply={messageReply} messageDelete={messageDelete}
+							messageEdit={messageEdit} messageInteraction={messageInteraction} setEditMessage={setEditMessage}
+							setReplyMessage={setReplyMessage} message={message} user={user}
+							selectedMessage={selectedMessage} setSelectedMessage={setSelectedMessage}
+							roomid={roomid}
+						/>
 			}
 		</div >
 	)

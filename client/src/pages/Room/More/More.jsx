@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import '../../../styles/Chat/More/More.css'
+import '../../../styles/Room/More/More.css'
 import MoreCreator from './MoreCreator'
 import MoreUser from './MoreUser'
 
-const More = ({ chat, setMoreInfo, moreInfo }) => {
+const More = ({ setMoreInfo, moreInfo }) => {
+	const chat = useSelector(state => state.room.room)
 	const chatMore = ['chat__more', 'more']
 	const [editAvatar, setEditAvatar] = useState(false)
 	if (moreInfo) {
@@ -20,16 +21,12 @@ const More = ({ chat, setMoreInfo, moreInfo }) => {
 			</div>
 			{chat._id !== undefined &&
 				<div className='more__wrapper'>
-					{moreInfo
-						?
-						<MoreCreator
-							editAvatar={editAvatar}
-							setEditAvatar={setEditAvatar}
-						/>
-						:
-						<MoreUser
-						/>
-					}
+					<MoreCreator
+						editAvatar={editAvatar}
+						setEditAvatar={setEditAvatar}
+					/>
+					<MoreUser
+					/>
 				</div>
 			}
 		</div >

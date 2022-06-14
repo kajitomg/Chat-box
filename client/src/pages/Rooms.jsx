@@ -1,4 +1,4 @@
-import '../styles/Chats/Chats.css'
+import '../styles/Rooms/Rooms.css'
 import '../styles/App.css'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -13,7 +13,7 @@ import { clearRoomReducer } from '../reducers/roomReducer'
 import avatarLogo from '../img/avatar/default-avatar.jpg'
 import socket from '../socket'
 
-const Chats = () => {
+const Rooms = () => {
 	const [modalVisible, setModalVisible] = useState(false)
 	const [roomName, setRoomName] = useState('')
 	const dispatch = useDispatch()
@@ -67,52 +67,54 @@ const Chats = () => {
 		await setIsRoomLoading(false)
 	}
 	return (
-		<section className='chats'>
-			<form className='chats__search'>
+		<section className='rooms'>
+			<form className='rooms__search search'>
 				<MyInput value={roomSearch} onChange={async (e) => {
 					setRoomSearch(e.target.value)
-				}} type='text' className='chats__search-input' placeholder='Search rooms' />
-				<MyButton className='chats__search-button' onClick={serchRoom}>Search</MyButton>
+				}} type='text' className='search__input' placeholder='Search rooms' />
+				<MyButton className='search__button' onClick={serchRoom}>Search</MyButton>
 				{(roomsFounding && rooms.length !== 0 && !isRoomLoading)
 					&&
-					<div className="absence__cancel absence__cancel-foundroom" onClick={canceledSearch}>
-						<span></span>
-						<span></span>
+					<div className='search__absence absence'>
+						<div className="absence__cancel absence__cancel-foundroom" onClick={canceledSearch}>
+							<span></span>
+							<span></span>
+						</div>
 					</div>
 				}
 			</form>
-			<div className="chats__rooms">
+			<div className="rooms__wrapper">
 				<MyModal visible={modalVisible} setVisible={setModalVisible} >
-					<MyInput value={roomName} type='text' className='chats__input' placeholder='Chat name' onChange={(e) => {
+					<MyInput value={roomName} type='text' className='rooms__input' placeholder='Chat name' onChange={(e) => {
 						setRoomName(e.target.value)
 					}
 					} />
-					<MyButton className='chats__button' onClick={createRoom} >Create room</MyButton>
+					<MyButton className='rooms__button' onClick={createRoom} >Create room</MyButton>
 				</MyModal>
 				<div onClick={() => {
 					setModalVisible(true)
-				}} className="chats__room-create" >
+				}} className="rooms__room-create" >
 					<span></span>
 					<span></span>
 				</div>
 				{isRoomLoading
-					? <div className='chats__loader'><Loader /></div>
+					? <div className='rooms__loader'><Loader /></div>
 					: rooms.length !== 0
 						?
 						rooms.map(room =>
-							<div key={room.id} className="chats__room room" onClick={async () => {
-								navigate(`/chat/${room.id}`);
+							<div key={room._id} className="rooms__room room" onClick={async () => {
+								navigate(`/room/${room._id}`);
 							}}>
 
 								<img className='room__avatar' src={room.avatar ? (path + room.avatar) : avatarURL} alt="" />
-								<div className='room__roomname'>{room.roomname}<span className='room__id'>@{room.id.slice(0, 8)}</span></div>
+								<div className='room__roomname'>{room.roomname}<span className='room__id'>@{room._id.slice(0, 8)}</span></div>
 
 							</div>
 						)
 						:
 						roomsFounding
 							?
-							<div className='chats__absence absence'>
+							<div className='rooms__absence absence'>
 								<div className="absence__text">Комнаты не найдены</div>
 								<div className="absence__cancel" onClick={canceledSearch}>
 									<span></span>
@@ -120,7 +122,7 @@ const Chats = () => {
 								</div>
 							</div>
 							:
-							<div className='chats__absence absence'>
+							<div className='rooms__absence absence'>
 								<div className="absence__text absence__text-noroom">У вас еще нет ни одной комнаты</div>
 							</div>
 				}
@@ -129,4 +131,4 @@ const Chats = () => {
 	)
 }
 
-export default Chats
+export default Rooms

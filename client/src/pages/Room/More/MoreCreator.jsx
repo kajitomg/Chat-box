@@ -84,9 +84,7 @@ const MoreCreator = ({ editAvatar, setEditAvatar }) => {
 									<div className={avatarEdit.join(' ')} onClick={(e) => {
 										e.stopPropagation()
 									}}>
-										<input accept='image/*' type="file" id="input__file" className="input input__file" onChange={(e) => {
-											changeHandler(e)
-										}} />
+										<input accept='image/*' type="file" id="input__file" className="input input__file" onChange={changeHandler} />
 										<label htmlFor="input__file" className="input__file-button">
 											<div className="room-avatar__change">Change Avatar</div>
 										</label>

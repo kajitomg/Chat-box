@@ -22,7 +22,7 @@ const Login = () => {
 			<form action="" className='login__form'>
 				<MyInput value={username} onChange={(e) => setUsername(e.target.value)} className='login__input' type="text" placeholder="Enter your nickname" />
 				<MyInput value={password} onChange={(e) => setPassword(e.target.value)} className='login__input' type="password" placeholder="Enter your password" />
-				<MyButton onClick={(e) => loginfn(e)} to='/Chats' className='login__button'>Login</MyButton>
+				<MyButton onClick={loginfn} to='/Chats' className='login__button'>Login</MyButton>
 			</form>
 		</section>
 	)

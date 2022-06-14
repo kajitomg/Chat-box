@@ -1,4 +1,4 @@
-.chats {
+.rooms {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -6,7 +6,7 @@
 	padding:60px 0 10px 0;
 	height: 100%;
 }
-.chats__room-create {
+.rooms__room-create {
 	cursor: pointer;
 	position: relative;
 	margin: 20px;
@@ -15,7 +15,7 @@
 	border-radius: 20px;
 	background: #e7ddc349;
 }
-.chats__room-create span {
+.rooms__room-create span {
 	position: absolute;
 	top: 50%;
 	left: 50%;
@@ -25,14 +25,15 @@
 	width: 80px;
 	height: 8px;
 }
-.chats__room-create span:last-child {
+.rooms__room-create span:last-child {
 	transform: translate3d(-50%, -50%, 0) rotate(90deg);
 }
-.chats__room-create:hover {
+.rooms__room-create:hover {
 	animation: roomScalling 0.7s forwards ease-in-out;
 }
 
-.chats__room {
+.rooms__room {
+	position: relative;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -46,7 +47,7 @@
 	color: #e7ddc3;
 	background: #3a1803;
 }
-.chats__room:hover {
+.rooms__room:hover {
 	animation: roomScalling 0.5s forwards ease-in-out;
 }
 @keyframes roomScalling {
@@ -60,9 +61,10 @@
 		transform: scale(1);
 	}
 }
-.chats__rooms {
+.rooms__wrapper {
 	position: relative;
 	justify-content: flex-start;
+	align-content:flex-start;
 	padding: 0px 10px 0px 10px;
 	width: 100%;
 	margin: 0 0 10px 0;
@@ -76,10 +78,13 @@
 	height: calc(100% - 110px);
 }
 .room__avatar{
+	position: absolute;
+	top: 0;
+	left: 0;
 	z-index: 2;
 	background: rgba(0, 0, 0, 0.445);
 }
-.chats__room img{
+.rooms__room img{
 	cursor: pointer;
 	width: inherit;
 	height: inherit;
@@ -107,18 +112,18 @@
 	color: #e7ddc39d;
 	font-size: 12px;
 }
-.chats__rooms::-webkit-scrollbar {
+.rooms__wrapper::-webkit-scrollbar {
 	width: 0.1em;
 }
-.chats__rooms::-webkit-scrollbar,
-.chats__roomst::-webkit-scrollbar-thumb {
+.rooms__wrapper::-webkit-scrollbar,
+.rooms__wrapper::-webkit-scrollbar-thumb {
 	overflow: visible;
 	border-radius: 4px;
 }
-.chats__rooms::-webkit-scrollbar-thumb {
+.rooms__wrapper::-webkit-scrollbar-thumb {
 	background: rgba(0, 0, 0, 0.2);
 }
-.chats__input {
+.rooms__input {
 	padding: 0 0 0 10px;
 	border: solid 1px #3a1803;
 	border-radius: 50px;
@@ -129,13 +134,13 @@
 	background: transparent;
 	color: #3a1803;
 }
-.chats__input::placeholder {
+.rooms__input::placeholder {
 	color: #3a180333;
 }
-.chats__input:focus {
+.rooms__input:focus {
 	background: #3a18031a;
 }
-.chats__button {
+.rooms__button {
 	margin: 10px 0 0 0;
 	border-radius: 50px;
 	height: 40px;
@@ -147,11 +152,11 @@
 	width: 60%;
 	transition: 0.2s ease-in-out;
 }
-.chats__button:hover {
+.rooms__button:hover {
 	background: #3a1803;
 	color: #e7ddc3;
 }
-.chats__search {
+.rooms__search {
 
 	position: relative;
 	margin: 20px 0 10px 0;
@@ -162,7 +167,7 @@
 
 	width: 100%;
 }
-.chats__search-input {
+.search__input {
 	padding: 0 0 0 10px;
 	border: solid 1px #3a1803;
 	border-radius: 50px;
@@ -173,13 +178,13 @@
 	background: transparent;
 	color: #3a1803;
 }
-.chats__search-input::placeholder {
+.search__input::placeholder {
 	color: #3b0d0d33;
 }
-.chats__search-input:focus {
+.search__input:focus {
 	background: #3a180327;
 }
-.chats__search-button {
+.search__button {
 	display: flex;
 	border-radius: 50px;
 	height: auto;
@@ -192,11 +197,11 @@
 	width: auto;
 	transition: 0.2s ease-in-out;
 }
-.chats__search-button:hover {
+.search__button:hover {
 	background: #3a1803;
 	color: #e7ddc3;
 }
-/* .chats__deleteroom {
+/* .rooms__deleteroom {
 	z-index: 3;
 	cursor: pointer;
 	position: absolute;
@@ -205,7 +210,7 @@
 	width: 30px;
 	height: 30px;
 }
-.chats__deleteroom span {
+.rooms__deleteroom span {
 	position: absolute;
 	content: "";
 	width: 100%;
@@ -214,13 +219,15 @@
 	top: 50%;
 	left: 0;
 }
-.chats__deleteroom span:last-child {
+.rooms__deleteroom span:last-child {
 	transform: rotate(-45deg);
 }
-.chats__deleteroom span:first-child {
+.rooms__deleteroom span:first-child {
 	transform: rotate(45deg);
 } */
 .absence{
+}
+.rooms__absence{
 	position: absolute;
 	display: flex;
 	align-items: center;
@@ -271,49 +278,49 @@
 .absence__cancel span:last-child{
 	transform: translate(0,-50%) rotate(45deg);
 }
-.chats__loader{
+.rooms__loader{
 	position: absolute;
 	top: 50%;
 	left: 50%;
 	transform: translate3d(-50%, 0, 0);
 }
 @media (max-width: 1100px) {
-	.chats__rooms {
+	.rooms__rooms {
 
 	}
-	.chats__room {
+	.rooms__room {
 
 	}
-	.chats__room-create {
+	.rooms__room-create {
 
 	}
 	
 }
 @media (max-width: 1060px) {
-	.chats__rooms {
+	.rooms__wrapper  {
 		width: 810px;
 	}
-	.chats__room {
+	.rooms__room {
 	}
-	.chats__room-create {
+	.rooms__room-create {
 	}
 	
 }
 @media (max-width: 960px) {
-	.chats__rooms {
+	.rooms__wrapper {
 		width: 740px;
 	}
 	.room__id{
 		font-size: 11px;
 	}
-	.chats__room {
+	.rooms__room {
 		font-size: 22px;
 		margin: 18px;
 		width: 200px;
 		height: 150px;
 		border-radius: 20px;
 	}
-	.chats__room-create {
+	.rooms__room-create {
 		font-size: 22px;
 		margin: 18px;
 		width: 200px;
@@ -325,44 +332,44 @@
 	
 }
 @media (max-width: 760px) {
-	.chats__rooms {
+	.rooms__wrapper  {
 		width: 660px;
 	}
 	.room__id{
 		font-size: 10px;
 	}
-	.chats__room {
+	.rooms__room {
 		font-size: 20px;
 		margin: 15px;
 		width: 180px;
 		height: 140px;
 		border-radius: 20px;
 	}
-	.chats__room-create {
+	.rooms__room-create {
 		font-size: 20px;
 		margin: 15px;
 		width: 180px;
 		height: 140px;
 		border-radius: 20px;
 	}
-	.chats__room-create span {
+	.rooms__room-create span {
 		
 		width: 70px;
 		height: 8px;
 	}
-	.chats__deleteroom {
+	.rooms__deleteroom {
 		width: 28px;
 		height: 28px;
 	}
-	.chats__deleteroom span {
+	.rooms__deleteroom span {
 		width: 100%;
 		height: 3px;
 	}
-	.chats__search-button {
+	.search__button {
 		font-size: 24px;
 		font-weight: 600;
 	}
-	.chats__search-input {
+	.search__input {
 		padding: 0 0 0 10px;
 		font-size: 24px;
 		height: 40px;
@@ -370,45 +377,45 @@
 	}
 }
 @media (max-width: 660px) {
-	.chats__rooms {
+	.rooms__wrapper  {
 		width: 550px;
 	}
 	.room__id{
 		font-size: 8px;
 	}
-	.chats__room {
+	.rooms__room {
 		font-size: 18px;
 		margin: 13px;
 		width: 150px;
 		height: 120px;
 		border-radius: 20px;
 	}
-	.chats__room-create {
+	.rooms__room-create {
 		font-size: 18px;
 		margin: 13px;
 		width: 150px;
 		height: 120px;
 		border-radius: 20px;
 	}
-	.chats__room-create span {
+	.rooms__room-create span {
 		width: 60px;
 		height: 7px;
 	}
-	.chats__deleteroom {
+	.rooms__deleteroom {
 		top: 10px;
 		left: 10px;
 		width: 25px;
 		height: 25px;
 	}
-	.chats__deleteroom span {
+	.rooms__deleteroom span {
 		width: 100%;
 		height: 2.5px;
 	}
-	.chats__search-button {
+	.search__button {
 		font-size: 24px;
 		font-weight: 600;
 	}
-	.chats__search-input {
+	.search__input {
 		padding: 0 0 0 10px;
 		font-size: 24px;
 		height: 40px;
@@ -416,99 +423,99 @@
 	}
 }
 @media (max-width: 560px) {
-	.chats__rooms {
+	.rooms__wrapper  {
 		width: 470px;
 	}
 	.room__id{
 		font-size: 7px;
 	}
-	.chats__room {
+	.rooms__room {
 		font-size: 16px;
 		margin: 10px;
 		width: 130px;
 		height: 100px;
 		border-radius: 20px;
 	}
-	.chats__room-create {
+	.rooms__room-create {
 		font-size: 16px;
 		margin: 10px;
 		width: 130px;
 		height: 100px;
 		border-radius: 20px;
 	}
-	.chats__room-create span {
+	.rooms__room-create span {
 		width: 50px;
 		height: 6px;
 	}
-	.chats__deleteroom {
+	.rooms__deleteroom {
 		top: 10px;
 		left: 10px;
 		width: 20px;
 		height: 20px;
 	}
-	.chats__deleteroom span {
+	.rooms__deleteroom span {
 		width: 100%;
 		height: 2px;
 	}
-	.chats__input {
+	.rooms__input {
 		width: 80%;
 	}
-	.chats__button {
+	.rooms__button {
 		width: 80%;
 	}
 }
 @media (max-width: 470px) {
-	.chats__rooms {
+	.rooms__wrapper  {
 		width: 390px;
 	}
 	.room__id{
 		font-size: 6px;
 	}
-	.chats__room {
+	.rooms__room {
 		font-size: 18px;
 		margin: 10px;
 		width: 160px;
 		height: 120px;
 		border-radius: 20px;
 	}
-	.chats__room-create {
+	.rooms__room-create {
 		font-size: 18px;
 		margin: 10px;
 		width: 160px;
 		height: 120px;
 		border-radius: 20px;
 	}
-	.chats__room-create span {
+	.rooms__room-create span {
 		width: 60px;
 		height: 7px;
 	}
-	.chats__deleteroom {
+	.rooms__deleteroom {
 		top: 10px;
 		left: 10px;
 		width: 25px;
 		height: 25px;
 	}
-	.chats__deleteroom span {
+	.rooms__deleteroom span {
 		width: 100%;
 		height: 2.5px;
 	}
-	.chats__search-button {
+	.search__button {
 		font-size: 22px;
 		font-weight: 600;
 	}
-	.chats__search-input {
+	.search__input {
 		padding: 0 0 0 10px;
 		font-size: 22px;
 		height: 40px;
 		width: 60%;
 	}
-	.chats__search{
+	.rooms__search{
 		width: 90%;
 		margin: 5px auto;
 	}
 }
 @media (max-width: 390px) {
-	.chats__rooms {
+	.rooms__wrapper  {
 		padding: 0px 8px 70px 8px;
 		margin: 0 auto;
 		width: 335px;
@@ -516,47 +523,47 @@
 	.room__id{
 		font-size: 6px;
 	}
-	.chats__room {
+	.rooms__room {
 		font-size: 16px;
 		margin: 8px;
 		width: 140px;
 		height: 100px;
 		border-radius: 20px;
 	}
-	.chats__room-create {
+	.rooms__room-create {
 		font-size: 16px;
 		margin: 8px;
 		width: 140px;
 		height: 100px;
 		border-radius: 20px;
 	}
-	.chats__deleteroom {
+	.rooms__deleteroom {
 		top: 10px;
 		left: 10px;
 		width: 22px;
 		height: 22px;
 	}
-	.chats__deleteroom span {
+	.rooms__deleteroom span {
 		width: 100%;
 		height: 2px;
 	}
-	.chats__search-button {
+	.search__button {
 		font-size: 20px;
 		font-weight: 600;
 	}
-	.chats__search-input {
+	.search__input {
 		padding: 0 0 0 5px;
 		font-size: 20px;
 		height: 35px;
 		width: 60%;
 	}
-	.chats__search{
+	.rooms__search{
 		width: 90%;
 		margin: 5px auto;
 	}
 }
 @media (max-width: 340px) {
-	.chats__rooms {
+	.rooms__wrapper  {
 		padding: 0px 6px 70px 6px;
 		margin: 0 auto;
 		width: 280px;
@@ -564,86 +571,86 @@
 	.room__id{
 		font-size: 5px;
 	}
-	.chats__room {
+	.rooms__room {
 		font-size: 14px;
 		margin: 6px;
 		width: 120px;
 		height: 80px;
 		border-radius: 15px;
 	}
-	.chats__room-create {
+	.rooms__room-create {
 		font-size: 14px;
 		margin: 6px;
 		width: 120px;
 		height: 80px;
 		border-radius: 15px;
 	}
-	.chats__room-create span {
+	.rooms__room-create span {
 		width: 50px;
 		height: 5px;
 	}
-	.chats__search-button {
+	.search__button {
 		font-size: 18px;
 		font-weight: 600;
 	}
-	.chats__search-input {
+	.search__input {
 		padding: 0 0 0 5px;
 		font-size: 18px;
 		height: 32px;
 		width: 60%;
 	}
-	.chats__search{
+	.rooms__search{
 		width: 90%;
 		margin: 5px auto;
 	}
 }
 @media (max-width: 280px) {
-	.chats__rooms {
+	.rooms__wrapper {
 		margin: 0 auto;
 		width: 240px;
 	}
 	.room__id{
 		font-size: 5px;
 	}
-	.chats__room {
+	.rooms__room {
 		font-size: 14px;
 		margin: 6px;
 		width: 100px;
 		height: 70px;
 		border-radius: 15px;
 	}
-	.chats__room-create {
+	.rooms__room-create {
 		font-size: 14px;
 		margin: 6px;
 		width: 100px;
 		height: 70px;
 		border-radius: 15px;
 	}
-	.chats__room-create span {
+	.crooms_room-create span {
 		width: 45px;
 		height: 5px;
 	}
-	.chats__deleteroom {
+	.rooms__deleteroom {
 		top: 8px;
 		left: 8px;
 		width: 20px;
 		height: 20px;
 	}
-	.chats__deleteroom span {
+	.rooms__deleteroom span {
 		width: 100%;
 		height: 2px;
 	}
-	.chats__search-button {
+	.search__button {
 		font-size: 16px;
 		font-weight: 600;
 	}
-	.chats__search-input {
+	.search__input {
 		padding: 0 0 0 5px;
 		font-size: 16px;
 		height: 30px;
 		width: 60%;
 	}
-	.chats__search{
+	.rooms__search{
 		width: 90%;
 		margin: 5px auto;
 	}
