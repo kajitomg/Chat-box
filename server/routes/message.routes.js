@@ -24,7 +24,7 @@ router.post('/load-messages',
 	async (req, res) => {
 		try {
 			const { roomid, lastmessid } = req.body
-			const quantity = 15
+			const quantity = 100
 			let room = await chatRoomModel.findOne({ _id: roomid }, { messages: 1 })
 			let total = room.messages.length
 			let revMessages = room.messages.reverse()
